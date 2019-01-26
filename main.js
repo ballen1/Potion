@@ -7,7 +7,11 @@ let win;
 app.on('ready', () => {
     win = new BrowserWindow({width: 800, height: 600});
 
-    win.loadFile('index.html');
+    win.loadFile('./source/index.html');
+
+    if (process.argv.indexOf('--dev') > -1) {
+        win.webContents.openDevTools();
+    }
 
     win.on('close', () => {
         win = null;
