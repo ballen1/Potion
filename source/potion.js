@@ -6,12 +6,16 @@ class Potion {
 
         navigator.requestMIDIAccess()
             .then(function(access) {
-                const outputs = access.inputs.values();
-                
-                if (outputs.length > 0) {
-                    setTimeout(() => { outputs[0].send([0x90, 0x45, 0x6f])}
-                    , 2000);
+                const outputs = access.outputs.values();
+                let first_output = outputs.next().value;
+                console.log('Output ', first_output)
+                setInterval(() => { 
+                    let note = Math.random() * 127
+                    console.log(note)
+                    first_output.send(new Uint8Array([0x90, note, 0x45]))
+                    setTimeout(() => {first_output.send(new Uint8Array([0x90, note, 0x00]))}, 1000);
                 }
+                , 500);
             });
     };
 };
