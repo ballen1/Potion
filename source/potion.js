@@ -1,7 +1,8 @@
 'use strict';
 
-const Input = require('./input');
 const Cauldron = require('./cauldron');
+const Midi = require('./midi');
+const Input = require('./input');
 
 class Potion {
     constructor() {
@@ -13,6 +14,8 @@ class Potion {
         this.context = this.canvas.getContext("2d");
         this.context.fillStyle = "red";
         this.context.fillRect(400, 400, 100, 100);
+
+        let midi = new Midi();
 
         let testCauldron = new Cauldron();
 
