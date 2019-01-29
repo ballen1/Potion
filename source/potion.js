@@ -1,23 +1,26 @@
 'use strict';
 
+const Input = require('./input');
+const Cauldron = require('./cauldron');
+
 class Potion {
     constructor() {
-        console.log("In Potion Constructor");
+        this.canvas = document.createElement('canvas');
+        this.canvas.width = 1440;
+        this.canvas.height = 1080;        
+        document.body.appendChild(this.canvas);
 
-        navigator.requestMIDIAccess()
-            .then(function(access) {
-                const outputs = access.outputs.values();
-                let first_output = outputs.next().value;
-                console.log('Output ', first_output)
-                setInterval(() => { 
-                    let note = Math.random() * 127
-                    console.log(note)
-                    first_output.send(new Uint8Array([0x90, note, 0x45]))
-                    setTimeout(() => {first_output.send(new Uint8Array([0x90, note, 0x00]))}, 1000);
-                }
-                , 500);
-            });
-    };
+        this.context = this.canvas.getContext("2d");
+        this.context.fillStyle = "red";
+        this.context.fillRect(400, 400, 100, 100);
+
+        let testCauldron = new Cauldron();
+
+        this.input = new Input(this.canvas);
+        this.input.clickHandler = () => {
+            testCauldron.playRandomNote();
+        };
+    }
 };
 
 module.exports = Potion;
