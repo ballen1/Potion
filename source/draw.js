@@ -2,8 +2,8 @@
 
 module.exports = {
 
-    drawText : function(context, text) {
-        context.fillText(text, 100, 100);
+    drawText : function(context, text, x, y) {
+        context.fillText(text, x, y);
     }
 
 };

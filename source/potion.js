@@ -20,7 +20,10 @@ class Potion {
 
         midi.getAvailablePorts()
         .then(ports => {
-            Draw.drawText(this.context, ports.inputs[0].name);
+            if (ports.outputs.length > 0) {
+                midi.output = ports.outputs[0];
+                Draw.drawText(this.context, midi.output.name, 10, 15);
+            }
         }, failure => {
             console.log(failure);
         });

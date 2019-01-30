@@ -1,4 +1,7 @@
 class Midi {
+    constructor() {
+        this.output = null;
+    }
 
     getAvailablePorts() {
         return new Promise((resolve, reject) => {
@@ -12,12 +15,9 @@ class Midi {
     }
 
     _getPorts(midiAccess) {
-        let ports = { 'inputs' : [], 'outputs' : []}
-        for (let input of midiAccess.inputs.values()) {
-            ports.inputs.push({ id: input.id, name: input.name});
-        }
+        let ports = { outputs : []}
         for (let output of midiAccess.outputs.values()) {
-            ports.outputs.push({ id: output.id, name: output.name });
+            ports.outputs.push(output);
         }
         return ports;
     }
