@@ -1,6 +1,7 @@
 'use strict';
 
 const Cauldron = require('./cauldron');
+const Draw = require('./draw');
 const Midi = require('./midi');
 const Input = require('./input');
 
@@ -16,6 +17,13 @@ class Potion {
         this.context.fillRect(400, 400, 100, 100);
 
         let midi = new Midi();
+
+        midi.getAvailablePorts()
+        .then(ports => {
+            Draw.drawText(this.context, ports.inputs[0].name);
+        }, failure => {
+            console.log(failure);
+        });
 
         let testCauldron = new Cauldron();
 
