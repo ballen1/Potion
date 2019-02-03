@@ -1,20 +1,15 @@
 'use strict';
 
 class Cauldron {
-    constructor() {
-
+    constructor(_midi) {
+        this.midi = _midi;
     }
 
     playRandomNote() {
         console.log("Cauldron playRandomNote()");
-        navigator.requestMIDIAccess()
-        .then(function(access) {
-            const outputs = access.outputs.values();
-            let first_output = outputs.next().value;
-            let note = Math.random() * 127;
-            first_output.send(new Uint8Array([0x90, note, 0x45]));
-            setTimeout(() => {first_output.send(new Uint8Array([0x90, note, 0x00]))}, 1000);
-        });
+        let note = Math.random() * 127;
+        this.midi.noteOn(note, 0x45);
+        this.midi.noteOff(note, 1000);
     }
 };
 

@@ -13,10 +13,11 @@ class Potion {
         document.body.appendChild(this.canvas);
 
         this.context = this.canvas.getContext("2d");
-        this.context.fillStyle = "red";
-        this.context.fillRect(400, 400, 100, 100);
 
         let midi = new Midi();
+
+        this.cauldrons = [];
+        this.cauldrons.push(new Cauldron(midi));
 
         midi.getAvailablePorts()
         .then(ports => {
@@ -27,12 +28,10 @@ class Potion {
         }, failure => {
             console.log(failure);
         });
-
-        let testCauldron = new Cauldron();
-
+        
         this.input = new Input(this.canvas);
         this.input.clickHandler = () => {
-            testCauldron.playRandomNote();
+            this.cauldrons[0].playRandomNote();
         };
     }
 };

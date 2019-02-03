@@ -14,6 +14,18 @@ class Midi {
         });
     }
 
+    noteOn(note, velocity, delay = 0) {
+        setTimeout(() => {
+            this.output.send([0x90, note, velocity]);
+        }, delay);
+    }
+
+    noteOff(note, delay = 0) {
+        setTimeout(() => {
+            this.output.send([0x90, note, 0]);
+        }, delay);
+    }
+
     _getPorts(midiAccess) {
         let ports = { outputs : []}
         for (let output of midiAccess.outputs.values()) {
