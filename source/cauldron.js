@@ -9,6 +9,8 @@ class Cauldron {
 
         this.x = _x;
         this.y = _y;
+
+        this.emitters = [];
     }
 
     get width() {
@@ -17,6 +19,14 @@ class Cauldron {
 
     get height() {
         return CAULDRON_HEIGHT;
+    }
+
+    addIngredient(ingredient) {
+        if (ingredient.type === 'emitter') {
+            this.emitters.push(ingredient);
+            ingredient.signal = () => { console.log("Hello, I'm a Rock!"); };
+            ingredient.brew();
+        }
     }
 
     playRandomNote() {

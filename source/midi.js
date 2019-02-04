@@ -1,3 +1,5 @@
+'use strict';
+
 class Midi {
     constructor() {
         this.output = null;

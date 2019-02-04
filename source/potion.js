@@ -3,7 +3,10 @@
 const Cauldron = require('./cauldron');
 const Draw = require('./draw');
 const Midi = require('./midi');
+const Ingredients = require('./ingredients');
 const Input = require('./input');
+
+const Rock = require('./ingredients/rock');
 
 class Potion {
     constructor() {
@@ -16,8 +19,9 @@ class Potion {
 
         this.cauldrons = [];
         this.cauldrons.push(new Cauldron(this.midi, 200, 200));
+        this.cauldrons[0].addIngredient(new Rock(1000));
 
-        let drawer = new Draw(this.canvas, this.midi, this.cauldrons);
+        let drawer = new Draw(this.canvas, this.midi, this.cauldrons, Ingredients);
 
         this.midi.getAvailablePorts()
         .then(ports => {

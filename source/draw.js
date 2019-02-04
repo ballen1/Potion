@@ -18,12 +18,16 @@ const INGREDIENTS_PANEL_Y = MAIN_PANEL_Y + MAIN_PANEL_HEIGHT + 10;
 const INGREDIENTS_WIDTH = MAIN_PANEL_WIDTH;
 const INGREDIENTS_HEIGHT = 130;
 
+const INGREDIENT_WIDTH = 40;
+const INGREDIENT_HEIGHT = 40;
+
 class Draw {
-    constructor(_canvas, _midi, _cauldrons) {
+    constructor(_canvas, _midi, _cauldrons, _ingredients) {
         this.canvas = _canvas;
         this.context = this.canvas.getContext('2d');
         this.midi = _midi;
         this.cauldrons = _cauldrons;
+        this.ingredients = _ingredients;
 
         this.context.font = '14px monospace';
     }
@@ -38,10 +42,25 @@ class Draw {
             INGREDIENTS_WIDTH, INGREDIENTS_HEIGHT);
         this._drawText(this.midi.output.name, MIDI_OUTPUT_X, MIDI_OUTPUT_Y);
 
+        let prevStrokeStyle = this.context.strokeSyle;
+        this.context.strokeStyle = "green";
+
         for (let cauldron of this.cauldrons) {
             this._drawBox(MAIN_PANEL_X + cauldron.x, MAIN_PANEL_Y + cauldron.y,
                 cauldron.width, cauldron.height);
         }
+
+        this.context.strokeStyle = "red";
+
+        let xPos = INGREDIENTS_PANEL_X + 20;
+        let yPos = INGREDIENTS_PANEL_Y + 20;
+
+        for (let emitter of this.ingredients.emitters) {
+            this._drawTriangle(xPos, yPos, INGREDIENT_WIDTH, INGREDIENT_HEIGHT);
+            xPos += INGREDIENT_WIDTH + 20;
+        }
+
+        this.context.strokeStyle = prevStrokeStyle;
     }
 
     _drawText(text, x, y) {
@@ -50,6 +69,16 @@ class Draw {
 
     _drawBox(x, y, w, h) {
         this.context.strokeRect(x, y, w, h);
+    }
+
+    _drawTriangle(x, y, w, h) {
+        let midX = x + (w / 2);
+        this.context.beginPath();
+        this.context.moveTo(midX, y);
+        this.context.lineTo(x, y + h);
+        this.context.lineTo(x + w, y + h);
+        this.context.lineTo(midX, y);
+        this.context.stroke();
     }
 };
 
