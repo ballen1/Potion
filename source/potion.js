@@ -12,17 +12,17 @@ class Potion {
         this.canvas.height = 600;
         document.body.appendChild(this.canvas);
 
-        let midi = new Midi();
+        this.midi = new Midi();
 
         this.cauldrons = [];
-        this.cauldrons.push(new Cauldron(midi));
+        this.cauldrons.push(new Cauldron(this.midi, 200, 200));
 
-        let drawer = new Draw(this.canvas, midi, this.cauldrons);
+        let drawer = new Draw(this.canvas, this.midi, this.cauldrons);
 
-        midi.getAvailablePorts()
+        this.midi.getAvailablePorts()
         .then(ports => {
             if (ports.outputs.length > 0) {
-                midi.output = ports.outputs[0];
+                this.midi.output = ports.outputs[0];
                 drawer.drawCanvas();
             }
         }, failure => {
