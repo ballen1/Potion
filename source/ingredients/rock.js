@@ -11,9 +11,6 @@ class Rock {
         if (this.signal) {
             setInterval(this.signal, this.interval);
         }
-        else {
-            console.log("Has no signal to emit!");
-        }
     }
 };
 

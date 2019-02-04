@@ -6,6 +6,7 @@ const Midi = require('./midi');
 const Ingredients = require('./ingredients');
 const Input = require('./input');
 
+const Mushroom = require('./ingredients/mushroom');
 const Rock = require('./ingredients/rock');
 
 class Potion {
@@ -21,12 +22,17 @@ class Potion {
         this.cauldrons.push(new Cauldron(this.midi, 200, 200));
         this.cauldrons[0].addIngredient(new Rock(1000));
 
+        this.cauldrons.push(new Cauldron(this.midi, 50, 50));
+        this.cauldrons[1].addIngredient(new Rock(1333));
+
         let drawer = new Draw(this.canvas, this.midi, this.cauldrons, Ingredients);
 
         this.midi.getAvailablePorts()
         .then(ports => {
             if (ports.outputs.length > 0) {
                 this.midi.output = ports.outputs[0];
+                this.cauldrons[0].addIngredient(new Mushroom(this.midi, 60));
+                this.cauldrons[1].addIngredient(new Mushroom(this.midi, 62));
                 drawer.drawCanvas();
             }
         }, failure => {
@@ -36,7 +42,7 @@ class Potion {
         this.input = new Input(this.canvas);
 
         this.input.clickHandler = () => {
-            this.cauldrons[0].playRandomNote();
+            console.log('Click');
         };
 
         this.input.keydownHandler = (key) => {

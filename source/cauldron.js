@@ -10,7 +10,8 @@ class Cauldron {
         this.x = _x;
         this.y = _y;
 
-        this.emitters = [];
+        this.emitter = null;
+        this.effect = null;
     }
 
     get width() {
@@ -23,16 +24,16 @@ class Cauldron {
 
     addIngredient(ingredient) {
         if (ingredient.type === 'emitter') {
-            this.emitters.push(ingredient);
-            ingredient.signal = () => { console.log("Hello, I'm a Rock!"); };
-            ingredient.brew();
+            this.emitter = ingredient;
         }
-    }
+        else if (ingredient.type == 'effect') {
+            this.effect = ingredient;
+        }
 
-    playRandomNote() {
-        let note = Math.random() * 127;
-        this.midi.noteOn(note, 0x45);
-        this.midi.noteOff(note, 1000);
+        if (this.emitter && this.effect) {
+            this.emitter.signal = this.effect.emanate.bind(this.effect);
+            this.emitter.brew();
+        }
     }
 };
 
