@@ -42,11 +42,13 @@ class Draw {
             INGREDIENTS_WIDTH, INGREDIENTS_HEIGHT);
         this._drawText(this.midi.output.name, MIDI_OUTPUT_X, MIDI_OUTPUT_Y);
 
-        let prevStrokeStyle = this.context.strokeSyle;
-        this.context.strokeStyle = "green";
+        const prevStrokeStyle = this.context.strokeStyle;
+        const prevFillStyle = this.context.fillStyle;
+
+        this.context.fillStyle = "green";
 
         for (let cauldron of this.cauldrons) {
-            this._drawBox(MAIN_PANEL_X + cauldron.x, MAIN_PANEL_Y + cauldron.y,
+            this._drawCircle(cauldron.x, cauldron.y,
                 cauldron.width, cauldron.height);
         }
 
@@ -61,6 +63,7 @@ class Draw {
         }
 
         this.context.strokeStyle = prevStrokeStyle;
+        this.context.fillStyle = prevFillStyle;
     }
 
     _drawText(text, x, y) {
@@ -69,6 +72,12 @@ class Draw {
 
     _drawBox(x, y, w, h) {
         this.context.strokeRect(x, y, w, h);
+    }
+
+    _drawCircle(x, y, r) {
+        this.context.beginPath();
+        this.context.arc(x, y, r, 0, 2 * Math.PI);
+        this.context.fill();
     }
 
     _drawTriangle(x, y, w, h) {

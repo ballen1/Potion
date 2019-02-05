@@ -12,24 +12,16 @@ class Potion {
         this.canvas.width = 800;
         this.canvas.height = 600;
         document.body.appendChild(this.canvas);
-
         this.midi = new Midi();
-
         this.cauldrons = [];
-        this.cauldrons.push(new Cauldron(this.midi, 200, 200));
-        this.cauldrons[0].addIngredient(Ingredients.Rock(Ingredients.emitters[0]));
-
-        this.cauldrons.push(new Cauldron(this.midi, 50, 50));
-        this.cauldrons[1].addIngredient(Ingredients.Rock(Ingredients.emitters[2]));
-
         let drawer = new Draw(this.canvas, this.midi, this.cauldrons, Ingredients);
+        this.canvasMouseX = 0;
+        this.canvasMouseY = 0;
 
         this.midi.getAvailablePorts()
         .then(ports => {
             if (ports.outputs.length > 0) {
                 this.midi.output = ports.outputs[0];
-                this.cauldrons[0].addIngredient(Ingredients.Mushroom(Ingredients.effects[0], this.midi));
-                this.cauldrons[1].addIngredient(Ingredients.Mushroom(Ingredients.effects[2], this.midi));
                 drawer.drawCanvas();
             }
         }, failure => {
@@ -43,8 +35,17 @@ class Potion {
         };
 
         this.input.keydownHandler = (key) => {
-            console.log(key);
+            if (key == 'a') {
+                this.cauldrons.push(new Cauldron(this.canvasMouseX, this.canvasMouseY));
+                drawer.drawCanvas();
+            }
         };
+
+        this.input.mousemoveHandler = (event) => {
+            let rect = this.canvas.getBoundingClientRect();
+            this.canvasMouseX = event.pageX - rect.left;
+            this.canvasMouseY = event.pageY - rect.top;
+        }
     }
 };
 

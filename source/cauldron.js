@@ -4,9 +4,7 @@ const CAULDRON_WIDTH = 40;
 const CAULDRON_HEIGHT = 40;
 
 class Cauldron {
-    constructor(_midi, _x = 0, _y = 0) {
-        this.midi = _midi;
-
+    constructor(_x = 0, _y = 0) {
         this.x = _x;
         this.y = _y;
 

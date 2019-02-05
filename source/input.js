@@ -9,9 +9,11 @@ class Input {
 
         this.clickBound = event => this.click(event);
         this.keydownBound = event => this.keydown(event);
+        this.mousemoveBound = event => this.mousemove(event);
 
-        this.canvas.addEventListener("click", this.clickBound);
-        window.addEventListener("keydown", this.keydownBound);
+        this.canvas.addEventListener('click', this.clickBound);
+        window.addEventListener('keydown', this.keydownBound);
+        this.canvas.addEventListener('mousemove', this.mousemoveBound);
     }
 
     click(event) {
@@ -21,6 +23,10 @@ class Input {
     keydown(event) {
         this.callEventHandler(this.keydownHandler, event.key);
         event.preventDefault();
+    }
+
+    mousemove(event) {
+        this.callEventHandler(this.mousemoveHandler, event);
     }
 
     callEventHandler(handler, ...args) {
