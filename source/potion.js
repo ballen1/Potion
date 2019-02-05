@@ -6,9 +6,6 @@ const Midi = require('./midi');
 const Ingredients = require('./ingredients');
 const Input = require('./input');
 
-const Mushroom = require('./ingredients/mushroom');
-const Rock = require('./ingredients/rock');
-
 class Potion {
     constructor() {
         this.canvas = document.createElement('canvas');
@@ -20,10 +17,10 @@ class Potion {
 
         this.cauldrons = [];
         this.cauldrons.push(new Cauldron(this.midi, 200, 200));
-        this.cauldrons[0].addIngredient(new Rock(1000));
+        this.cauldrons[0].addIngredient(Ingredients.Rock(Ingredients.emitters[0]));
 
         this.cauldrons.push(new Cauldron(this.midi, 50, 50));
-        this.cauldrons[1].addIngredient(new Rock(1333));
+        this.cauldrons[1].addIngredient(Ingredients.Rock(Ingredients.emitters[2]));
 
         let drawer = new Draw(this.canvas, this.midi, this.cauldrons, Ingredients);
 
@@ -31,8 +28,8 @@ class Potion {
         .then(ports => {
             if (ports.outputs.length > 0) {
                 this.midi.output = ports.outputs[0];
-                this.cauldrons[0].addIngredient(new Mushroom(this.midi, 60));
-                this.cauldrons[1].addIngredient(new Mushroom(this.midi, 62));
+                this.cauldrons[0].addIngredient(Ingredients.Mushroom(Ingredients.effects[0], this.midi));
+                this.cauldrons[1].addIngredient(Ingredients.Mushroom(Ingredients.effects[2], this.midi));
                 drawer.drawCanvas();
             }
         }, failure => {
