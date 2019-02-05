@@ -39,6 +39,16 @@ class Potion {
                 this.cauldrons.push(new Cauldron(this.canvasMouseX, this.canvasMouseY));
                 drawer.drawCanvas();
             }
+            else if (key == 'Enter') {
+                let ingredient = Ingredients.emitters.find((obj) => {
+                    return obj.name === drawer.selectedIngredient;
+                });
+
+                // Change this to only add to a selected cauldron
+                for (let cauldron of this.cauldrons) {
+                    cauldron.addIngredient(Ingredients.Rock(ingredient));
+                }
+            }
         };
 
         this.input.mousemoveHandler = (event) => {
