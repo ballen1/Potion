@@ -78,7 +78,7 @@ class Draw {
 
             let index = ingredients.findIndex((ingredient) => {
                 return this.selectedIngredient === ingredient.name;
-            })
+            });
 
             this.selectedIngredient = ingredients[(index + 1) % ingredients.length].name;
         }
@@ -88,7 +88,7 @@ class Draw {
 
             let index = ingredients.findIndex((ingredient) => {
                 return this.selectedIngredient === ingredient.name;
-            })
+            });
 
             this.selectedIngredient = ingredients[(index - 1 + ingredients.length) % ingredients.length].name;
         }
@@ -96,7 +96,19 @@ class Draw {
 
         }
         else if (key == 'ArrowDown') {
+            let selection = this.ingredients.byName(this.selectedIngredient);
+            
+            let index = this.ingredients.all.findIndex((ingredient) => {
+                return this.selectedIngredient === ingredient.name;
+            });
 
+            index = (index + 1) % this.ingredients.all.length;
+
+            while (selection.type === this.ingredients.all[index].type) {
+                index = (index + 1) % this.ingredients.all.length;
+            }
+
+            this.selectedIngredient = this.ingredients.all[index].name;
         }
     }
 

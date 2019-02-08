@@ -40,13 +40,16 @@ class Potion {
                 drawer.drawCanvas();
             }
             else if (key == 'Enter') {
-                let ingredient = Ingredients.emitters.find((obj) => {
-                    return obj.name === drawer.selectedIngredient;
-                });
+                let ingredient = Ingredients.byName(drawer.selectedIngredient);
 
                 // Change this to only add to a selected cauldron
                 for (let cauldron of this.cauldrons) {
-                    cauldron.addIngredient(Ingredients.Rock(ingredient));
+                    if (ingredient.type === 'emitter') {
+                        cauldron.addIngredient(Ingredients.Rock(ingredient));
+                    }
+                    else if (ingredient.type == 'effect') {
+                        cauldron.addIngredient(Ingredients.Mushroom(ingredient, this.midi));
+                    }
                 }
             }
             else if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].indexOf(key) > -1) {
