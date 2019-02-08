@@ -49,6 +49,10 @@ class Potion {
                     cauldron.addIngredient(Ingredients.Rock(ingredient));
                 }
             }
+            else if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].indexOf(key) > -1) {
+                drawer.handleDrawerKeyDown(key);
+                drawer.drawCanvas();
+            }
         };
 
         this.input.mousemoveHandler = (event) => {

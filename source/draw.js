@@ -21,7 +21,8 @@ const INGREDIENTS_HEIGHT = 130;
 const INGREDIENT_WIDTH = 20;
 const INGREDIENT_HEIGHT = 20;
 const INGREDIENT_NAME_BUFFER = 20;
-const INGREDIENT_SEPARATION = INGREDIENT_WIDTH * 4;
+const INGREDIENT_HORIZONTAL_SEPARATION = INGREDIENT_WIDTH * 4;
+const INGREDIENT_VERTICAL_SEPARATION = INGREDIENT_HEIGHT + 25;
 
 class Draw {
     constructor(_canvas, _midi, _cauldrons, _ingredients) {
@@ -33,7 +34,7 @@ class Draw {
 
         this.context.font = '14px monospace';
 
-        this.selectedIngredient = this.ingredients.emitters[0].name;
+        this.selectedIngredient = this.ingredients.all[0].name;
     }
 
     drawCanvas() {
@@ -56,25 +57,47 @@ class Draw {
                 cauldron.width, cauldron.height);
         }
 
-        this.context.strokeStyle = 'red';
-
         let xPos = INGREDIENTS_PANEL_X + 20;
-        let yPos = INGREDIENTS_PANEL_Y + 20;
+        let yPos = INGREDIENTS_PANEL_Y + 15;
 
-        for (let emitter of this.ingredients.emitters) {
-            let isSelected = emitter.name === this.selectedIngredient;
+        this._drawIngredientRow(this.ingredients.ofType('emitter'), xPos, yPos, 'red');
 
-            this.context.fillStyle = 'red';
-            this._drawTriangle(xPos, yPos, INGREDIENT_WIDTH, INGREDIENT_HEIGHT, isSelected);
+        xPos = INGREDIENTS_PANEL_X + 20;
+        yPos += INGREDIENT_HEIGHT + INGREDIENT_VERTICAL_SEPARATION;
 
-            this.context.fillStyle = 'black';
-            this._drawText(emitter.name, xPos - (INGREDIENT_WIDTH/2), yPos + INGREDIENT_HEIGHT + INGREDIENT_NAME_BUFFER);
-            
-            xPos += INGREDIENT_WIDTH + INGREDIENT_SEPARATION;
-        }
+        this._drawIngredientRow(this.ingredients.ofType('effect'), xPos, yPos, 'blue');
 
         this.context.strokeStyle = prevStrokeStyle;
         this.context.fillStyle = prevFillStyle;
+    }
+
+    handleDrawerKeyDown(key) {
+        if (key == 'ArrowRight') {
+            let ingredient = this.ingredients.byName(this.selectedIngredient);
+            let ingredients = this.ingredients.ofType(ingredient.type);
+
+            let index = ingredients.findIndex((ingredient) => {
+                return this.selectedIngredient === ingredient.name;
+            })
+
+            this.selectedIngredient = ingredients[(index + 1) % ingredients.length].name;
+        }
+        else if (key == 'ArrowLeft') {
+            let ingredient = this.ingredients.byName(this.selectedIngredient);
+            let ingredients = this.ingredients.ofType(ingredient.type);
+
+            let index = ingredients.findIndex((ingredient) => {
+                return this.selectedIngredient === ingredient.name;
+            })
+
+            this.selectedIngredient = ingredients[(index - 1 + ingredients.length) % ingredients.length].name;
+        }
+        else if (key == 'ArrowUp') {
+
+        }
+        else if (key == 'ArrowDown') {
+
+        }
     }
 
     _drawText(text, x, y) {
@@ -104,6 +127,22 @@ class Draw {
         }
         else {
             this.context.stroke();
+        }
+    }
+
+    _drawIngredientRow(ingredients, x, y, color) {
+        this.context.strokeStyle = color;
+
+        for (let ingredient of ingredients) {
+            let isSelected = (ingredient.name === this.selectedIngredient);
+
+            this.context.fillStyle = color;
+            this._drawTriangle(x, y, INGREDIENT_WIDTH, INGREDIENT_HEIGHT, isSelected);
+
+            this.context.fillStyle = 'black';
+            this._drawText(ingredient.name, x - (INGREDIENT_WIDTH/2), y + INGREDIENT_HEIGHT + INGREDIENT_NAME_BUFFER);
+            
+            x += INGREDIENT_WIDTH + INGREDIENT_HORIZONTAL_SEPARATION;
         }
     }
 };
