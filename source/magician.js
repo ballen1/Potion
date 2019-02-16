@@ -8,6 +8,8 @@ class Magician {
 
         this.time = 0;
         this.elapsed = 0;
+
+        this.cauldrons = [];
     }
 
     begin() {
@@ -18,14 +20,21 @@ class Magician {
     stir() {
         let currentTime = Date.now();
         this.elapsed += (currentTime - this.time);
+        this.time = currentTime;
 
         if (this.elapsed >= (60000 / this.bpm)) {
-            console.log("Stirrr!!!");
             this.elapsed = 0;
-        }
 
-        this.time = currentTime;
+            for (let cauldron of this.cauldrons) {
+                cauldron.bubble();
+            }
+        }
     }
+
+    addCauldron(cauldron) {
+        this.cauldrons.push(cauldron);
+    }
+
 };
 
 module.exports = Magician;

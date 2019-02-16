@@ -14,10 +14,9 @@ class Potion {
         this.canvas.height = 600;
         document.body.appendChild(this.canvas);
         this.midi = new Midi();
-        this.cauldrons = [];
-        let magician = new Magician(60);
+        let magician = new Magician(120);
         magician.begin();
-        let drawer = new Draw(this.canvas, this.midi, this.cauldrons, Ingredients, magician);
+        let drawer = new Draw(this.canvas, this.midi, Ingredients, magician);
         this.canvasMouseX = 0;
         this.canvasMouseY = 0;
 
@@ -44,7 +43,7 @@ class Potion {
         this.input.keydownHandler = (key) => {
             if (key == 'a') {
                 let coords = drawer.screenToWorldCoords(this.canvasMouseX, this.canvasMouseY);
-                this.cauldrons.push(new Cauldron(coords.x, coords.y));
+                magician.addCauldron(new Cauldron(coords.x, coords.y));
                 drawer.drawCanvas();
             }
             else if (key == 'Enter') {

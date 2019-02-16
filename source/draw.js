@@ -35,11 +35,10 @@ const INGREDIENT_VERTICAL_SEPARATION = INGREDIENT_HEIGHT + 25;
 const CAULDRON_HIGHLIGHT_BORDER_WIDTH = 10;
 
 class Draw {
-    constructor(_canvas, _midi, _cauldrons, _ingredients, _magician) {
+    constructor(_canvas, _midi, _ingredients, _magician) {
         this.canvas = _canvas;
         this.context = this.canvas.getContext('2d');
         this.midi = _midi;
-        this.cauldrons = _cauldrons;
         this.ingredients = _ingredients;
         this.magician = _magician;
 
@@ -68,7 +67,7 @@ class Draw {
 
         this.context.fillStyle = 'green';
 
-        for (let cauldron of this.cauldrons) {
+        for (let cauldron of this.magician.cauldrons) {
             let coords = this.worldToScreenCoords(cauldron.x, cauldron.y);
 
             if (cauldron === this.selectedCauldron) {
@@ -153,7 +152,7 @@ class Draw {
             MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT,
             x, y)) {
             let coords = this.screenToWorldCoords(x, y);
-            for (let cauldron of this.cauldrons) {
+            for (let cauldron of this.magician.cauldrons) {
                 let bounds = cauldron.boundingBox;
                 if (this._isPointInRect(bounds.x, bounds.y,
                     bounds.w, bounds.h, coords.x, coords.y)) {

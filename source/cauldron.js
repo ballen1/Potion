@@ -35,6 +35,11 @@ class Cauldron {
 
         if (this.emitter && this.effect) {
             this.emitter.signal = this.effect.emanate.bind(this.effect);
+        }
+    }
+
+    bubble() {
+        if (this.emitter) {
             this.emitter.brew();
         }
     }
