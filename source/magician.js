@@ -10,6 +10,8 @@ class Magician {
         this.elapsed = 0;
 
         this.cauldrons = [];
+
+        this.observers = [];
     }
 
     begin() {
@@ -28,6 +30,10 @@ class Magician {
             for (let cauldron of this.cauldrons) {
                 cauldron.bubble();
             }
+
+            for (let observer of this.observers) {
+                observer();
+            }
         }
     }
 
@@ -35,6 +41,9 @@ class Magician {
         this.cauldrons.push(cauldron);
     }
 
+    subscribe(callback) {
+        this.observers.push(callback);
+    }
 };
 
 module.exports = Magician;

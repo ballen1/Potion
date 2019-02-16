@@ -13,23 +13,14 @@ class Potion {
         this.canvas.width = 1000;
         this.canvas.height = 600;
         document.body.appendChild(this.canvas);
+
         this.midi = new Midi();
-        let magician = new Magician(120);
-        magician.begin();
+        let magician = new Magician(200);
+        
         let drawer = new Draw(this.canvas, this.midi, Ingredients, magician);
         this.canvasMouseX = 0;
         this.canvasMouseY = 0;
 
-        this.midi.getAvailablePorts()
-        .then(ports => {
-            if (ports.outputs.length > 0) {
-                this.midi.output = ports.outputs[0];
-                drawer.drawCanvas();
-            }
-        }, failure => {
-            console.log(failure);
-        });
-        
         this.input = new Input(this.canvas);
 
         this.input.clickHandler = (click) => {
@@ -71,6 +62,18 @@ class Potion {
             this.canvasMouseX = event.pageX - rect.left;
             this.canvasMouseY = event.pageY - rect.top;
         }
+
+        this.midi.getAvailablePorts()
+        .then(ports => {
+            if (ports.outputs.length > 0) {
+                this.midi.output = ports.outputs[0];
+                drawer.drawCanvas();
+                magician.begin();
+                this.input.ready();
+            }
+        }, failure => {
+            console.log(failure);
+        });
     }
 };
 

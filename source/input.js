@@ -7,6 +7,8 @@ class Input {
         this.clickHandler = null;
         this.keydownHandler = null;
 
+        this.isReady = false;
+
         this.clickBound = event => this.click(event);
         this.keydownBound = event => this.keydown(event);
         this.mousemoveBound = event => this.mousemove(event);
@@ -14,6 +16,10 @@ class Input {
         this.canvas.addEventListener('click', this.clickBound);
         window.addEventListener('keydown', this.keydownBound);
         this.canvas.addEventListener('mousemove', this.mousemoveBound);
+    }
+
+    ready() {
+        this.isReady = true;
     }
 
     click(event) {
@@ -30,13 +36,15 @@ class Input {
     }
 
     callEventHandler(handler, ...args) {
-        if (handler) {
-            handler(...args);
+        if (this.isReady) {
+            if (handler) {
+                handler(...args);
+            }
+            else {
+                console.error("Event handler has not been configured!");
+            }
         }
-        else {
-            console.error("Event handler has not been configured!");
-        }
-    };
+    }
 };
 
 module.exports = Input;

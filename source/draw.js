@@ -13,6 +13,12 @@ const VISUAL_PANEL_HEIGHT = 580
 const VISUAL_BPM_X = VISUAL_PANEL_X + 10;
 const VISUAL_BPM_Y = VISUAL_PANEL_Y + 20;
 
+const BPM_WIDGET_X = VISUAL_PANEL_X + 10;
+const BPM_WIDGET_Y = VISUAL_BPM_Y + 20;
+const BPM_WIDGET_HEIGHT = 30;
+const BPM_WIDGET_WIDTH = VISUAL_PANEL_WIDTH - 20;
+const BPM_WIDGET_SEGMENTS = 8;
+
 const MIDI_OUTPUT_X = CONTROL_PANEL_X + 10;
 const MIDI_OUTPUT_Y = CONTROL_PANEL_Y + 20;
 
@@ -40,12 +46,31 @@ class Draw {
         this.context = this.canvas.getContext('2d');
         this.midi = _midi;
         this.ingredients = _ingredients;
+
         this.magician = _magician;
+
+        this.magicianUpdateBound = () => this.magicianUpdate();
+        this.magician.subscribe(this.magicianUpdateBound);
 
         this.context.font = '14px monospace';
 
         this.selectedIngredient = this.ingredients.all[0].name;
         this.selectedCauldron = null;
+
+        this.currentBpmSegment = 0;
+        this.bpmOn = false;
+    }
+
+    magicianUpdate() {
+        if (this.bpmOn) {
+            this.currentBpmSegment = (this.currentBpmSegment + 1) % BPM_WIDGET_SEGMENTS;
+        }
+        else {
+            this.bpmOn = true;
+            this.currentBpmSegment = 0;
+        }
+
+        this.drawCanvas();
     }
 
     drawCanvas() {
@@ -61,6 +86,15 @@ class Draw {
             VISUAL_PANEL_WIDTH, VISUAL_PANEL_HEIGHT);
         this._drawText("BPM: " + this.magician.bpm,
             VISUAL_BPM_X, VISUAL_BPM_Y);
+        this._drawBox(BPM_WIDGET_X, BPM_WIDGET_Y, BPM_WIDGET_WIDTH, BPM_WIDGET_HEIGHT);
+
+        if (this.bpmOn) {
+            this._drawBox(BPM_WIDGET_X + this.currentBpmSegment * (BPM_WIDGET_WIDTH / BPM_WIDGET_SEGMENTS),
+                          BPM_WIDGET_Y,
+                          BPM_WIDGET_WIDTH / BPM_WIDGET_SEGMENTS,
+                          BPM_WIDGET_HEIGHT,
+                          true);
+        }
 
         const prevStrokeStyle = this.context.strokeStyle;
         const prevFillStyle = this.context.fillStyle;
@@ -181,8 +215,13 @@ class Draw {
         this.context.fillText(text, x, y);
     }
 
-    _drawBox(x, y, w, h) {
-        this.context.strokeRect(x, y, w, h);
+    _drawBox(x, y, w, h, filled = false) {
+        if (filled) {
+            this.context.fillRect(x, y, w, h);
+        }
+        else {
+            this.context.strokeRect(x, y, w, h);
+        }
     }
 
     _drawCircle(x, y, r) {
