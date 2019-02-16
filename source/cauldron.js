@@ -1,7 +1,6 @@
 'use strict';
 
-const CAULDRON_WIDTH = 40;
-const CAULDRON_HEIGHT = 40;
+const CAULDRON_RADIUS = 40;
 
 class Cauldron {
     constructor(_x = 0, _y = 0) {
@@ -12,12 +11,18 @@ class Cauldron {
         this.effect = null;
     }
 
-    get width() {
-        return CAULDRON_WIDTH;
+    get radius() {
+        return CAULDRON_RADIUS;
     }
 
-    get height() {
-        return CAULDRON_HEIGHT;
+    get boundingBox() {
+        let b = {
+            x: this.x - CAULDRON_RADIUS,
+            y: this.y - CAULDRON_RADIUS,
+            w: CAULDRON_RADIUS * 2,
+            h: CAULDRON_RADIUS * 2
+        }
+        return b;
     }
 
     addIngredient(ingredient) {

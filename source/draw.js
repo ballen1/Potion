@@ -24,6 +24,8 @@ const INGREDIENT_NAME_BUFFER = 20;
 const INGREDIENT_HORIZONTAL_SEPARATION = INGREDIENT_WIDTH * 4;
 const INGREDIENT_VERTICAL_SEPARATION = INGREDIENT_HEIGHT + 25;
 
+const CAULDRON_HIGHLIGHT_BORDER_WIDTH = 10;
+
 class Draw {
     constructor(_canvas, _midi, _cauldrons, _ingredients) {
         this.canvas = _canvas;
@@ -35,6 +37,7 @@ class Draw {
         this.context.font = '14px monospace';
 
         this.selectedIngredient = this.ingredients.all[0].name;
+        this.selectedCauldron = null;
     }
 
     drawCanvas() {
@@ -53,8 +56,16 @@ class Draw {
         this.context.fillStyle = 'green';
 
         for (let cauldron of this.cauldrons) {
-            this._drawCircle(cauldron.x, cauldron.y,
-                cauldron.width, cauldron.height);
+            let coords = this.worldToScreenCoords(cauldron.x, cauldron.y);
+
+            if (cauldron === this.selectedCauldron) {
+                this.context.fillStyle = 'black';
+                this._drawCircle(coords.x, coords.y, cauldron.radius + CAULDRON_HIGHLIGHT_BORDER_WIDTH);
+            }
+
+            this.context.fillStyle = 'green';
+
+            this._drawCircle(coords.x, coords.y, cauldron.radius);
         }
 
         let xPos = INGREDIENTS_PANEL_X + 20;
@@ -93,7 +104,19 @@ class Draw {
             this.selectedIngredient = ingredients[(index - 1 + ingredients.length) % ingredients.length].name;
         }
         else if (key == 'ArrowUp') {
+            let selection = this.ingredients.byName(this.selectedIngredient);
 
+            let index = this.ingredients.all.findIndex((ingredient) => {
+                return this.selectedIngredient === ingredient.name;
+            });
+
+            index = (index - 1 + this.ingredients.all.length) % this.ingredients.all.length;
+
+            while (selection.type === this.ingredients.all[index].type) {
+                index = (index - 1 + this.ingredients.all.length) % this.ingredients.all.length;
+            }
+
+            this.selectedIngredient = this.ingredients.all[index].name;
         }
         else if (key == 'ArrowDown') {
             let selection = this.ingredients.byName(this.selectedIngredient);
@@ -109,6 +132,36 @@ class Draw {
             }
 
             this.selectedIngredient = this.ingredients.all[index].name;
+        }
+    }
+
+    handleClick(x, y) {
+        if (this._isPointInRect(MAIN_PANEL_X, MAIN_PANEL_Y,
+            MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT,
+            x, y)) {
+            let coords = this.screenToWorldCoords(x, y);
+            for (let cauldron of this.cauldrons) {
+                let bounds = cauldron.boundingBox;
+                if (this._isPointInRect(bounds.x, bounds.y,
+                    bounds.w, bounds.h, coords.x, coords.y)) {
+                    this.selectedCauldron = cauldron;
+                    break;
+                }
+            }
+        }
+    }
+
+    screenToWorldCoords(x, y) {
+        return {
+            x: x - MAIN_PANEL_X,
+            y: y - MAIN_PANEL_Y
+        }
+    }
+
+    worldToScreenCoords(x, y) {
+        return {
+            x: x + MAIN_PANEL_X,
+            y: y + MAIN_PANEL_Y
         }
     }
 
@@ -156,6 +209,15 @@ class Draw {
             
             x += INGREDIENT_WIDTH + INGREDIENT_HORIZONTAL_SEPARATION;
         }
+    }
+
+    _isPointInRect(x, y, w, h, pointX, pointY) {
+        if (pointX >= x && pointX <= (x + w) &&
+            pointY >= y && pointY <= (y + h)) {
+                return true;
+        }
+        
+        return false;
     }
 };
 

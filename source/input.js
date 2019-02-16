@@ -17,7 +17,7 @@ class Input {
     }
 
     click(event) {
-        this.callEventHandler(this.clickHandler);
+        this.callEventHandler(this.clickHandler, event);
     }
 
     keydown(event) {

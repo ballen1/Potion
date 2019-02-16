@@ -30,20 +30,26 @@ class Potion {
         
         this.input = new Input(this.canvas);
 
-        this.input.clickHandler = () => {
-            console.log('Click');
+        this.input.clickHandler = (click) => {
+            let xPos = click.clientX;
+            let yPos = click.clientY;
+
+            drawer.handleClick(xPos, yPos);
+            drawer.drawCanvas();
         };
 
         this.input.keydownHandler = (key) => {
             if (key == 'a') {
-                this.cauldrons.push(new Cauldron(this.canvasMouseX, this.canvasMouseY));
+                let coords = drawer.screenToWorldCoords(this.canvasMouseX, this.canvasMouseY);
+                this.cauldrons.push(new Cauldron(coords.x, coords.y));
                 drawer.drawCanvas();
             }
             else if (key == 'Enter') {
                 let ingredient = Ingredients.byName(drawer.selectedIngredient);
 
-                // Change this to only add to a selected cauldron
-                for (let cauldron of this.cauldrons) {
+                let cauldron = drawer.selectedCauldron;
+
+                if (cauldron) {
                     if (ingredient.type === 'emitter') {
                         cauldron.addIngredient(Ingredients.Rock(ingredient));
                     }
