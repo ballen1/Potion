@@ -5,6 +5,14 @@ const CONTROL_PANEL_Y = 10;
 const CONTROL_PANEL_WIDTH = 780;
 const CONTROL_PANEL_HEIGHT = 30;
 
+const VISUAL_PANEL_X = CONTROL_PANEL_X + CONTROL_PANEL_WIDTH + 10;
+const VISUAL_PANEL_Y = CONTROL_PANEL_Y;
+const VISUAL_PANEL_WIDTH = 190
+const VISUAL_PANEL_HEIGHT = 580
+
+const VISUAL_BPM_X = VISUAL_PANEL_X + 10;
+const VISUAL_BPM_Y = VISUAL_PANEL_Y + 20;
+
 const MIDI_OUTPUT_X = CONTROL_PANEL_X + 10;
 const MIDI_OUTPUT_Y = CONTROL_PANEL_Y + 20;
 
@@ -27,12 +35,13 @@ const INGREDIENT_VERTICAL_SEPARATION = INGREDIENT_HEIGHT + 25;
 const CAULDRON_HIGHLIGHT_BORDER_WIDTH = 10;
 
 class Draw {
-    constructor(_canvas, _midi, _cauldrons, _ingredients) {
+    constructor(_canvas, _midi, _cauldrons, _ingredients, _magician) {
         this.canvas = _canvas;
         this.context = this.canvas.getContext('2d');
         this.midi = _midi;
         this.cauldrons = _cauldrons;
         this.ingredients = _ingredients;
+        this.magician = _magician;
 
         this.context.font = '14px monospace';
 
@@ -44,11 +53,15 @@ class Draw {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this._drawBox(CONTROL_PANEL_X, CONTROL_PANEL_Y,
             CONTROL_PANEL_WIDTH, CONTROL_PANEL_HEIGHT);
+        this._drawText(this.midi.output.name, MIDI_OUTPUT_X, MIDI_OUTPUT_Y);
         this._drawBox(MAIN_PANEL_X, MAIN_PANEL_Y,
             MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
         this._drawBox(INGREDIENTS_PANEL_X, INGREDIENTS_PANEL_Y,
             INGREDIENTS_WIDTH, INGREDIENTS_HEIGHT);
-        this._drawText(this.midi.output.name, MIDI_OUTPUT_X, MIDI_OUTPUT_Y);
+        this._drawBox(VISUAL_PANEL_X, VISUAL_PANEL_Y,
+            VISUAL_PANEL_WIDTH, VISUAL_PANEL_HEIGHT);
+        this._drawText("BPM: " + this.magician.bpm,
+            VISUAL_BPM_X, VISUAL_BPM_Y);
 
         const prevStrokeStyle = this.context.strokeStyle;
         const prevFillStyle = this.context.fillStyle;

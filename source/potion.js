@@ -2,6 +2,7 @@
 
 const Cauldron = require('./cauldron');
 const Draw = require('./draw');
+const Magician = require('./magician');
 const Midi = require('./midi');
 const Ingredients = require('./ingredients');
 const Input = require('./input');
@@ -9,12 +10,14 @@ const Input = require('./input');
 class Potion {
     constructor() {
         this.canvas = document.createElement('canvas');
-        this.canvas.width = 800;
+        this.canvas.width = 1000;
         this.canvas.height = 600;
         document.body.appendChild(this.canvas);
         this.midi = new Midi();
         this.cauldrons = [];
-        let drawer = new Draw(this.canvas, this.midi, this.cauldrons, Ingredients);
+        let magician = new Magician(60);
+        magician.begin();
+        let drawer = new Draw(this.canvas, this.midi, this.cauldrons, Ingredients, magician);
         this.canvasMouseX = 0;
         this.canvasMouseY = 0;
 
