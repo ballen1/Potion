@@ -1,6 +1,6 @@
 'use strict';
 
-const CAULDRON_RADIUS = 40;
+const CAULDRON_RADIUS = 20;
 
 class Cauldron {
     constructor(_x = 0, _y = 0) {

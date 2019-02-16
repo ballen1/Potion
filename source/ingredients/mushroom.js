@@ -9,7 +9,7 @@ class Mushroom {
 
     emanate() {
         this.midi.noteOn(this.note, 0x45);
-        this.midi.noteOff(this.note, 50);
+        this.midi.noteOff(this.note, 200);
     }
 };
 
