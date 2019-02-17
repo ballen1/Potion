@@ -11,7 +11,11 @@ module.exports = {
     
         { name: 'Toadstool', type: 'effect', note: 60 },
         { name: 'Morels', type: 'effect', note: 62 },
-        { name: 'Oyster', type: 'effect', note: 64 }
+        { name: 'Oyster', type: 'effect', note: 64 },
+        { name: 'Enoki', type: 'effect', note: 65 },
+        { name: 'Chanterelle', type: 'effect', note: 67 },
+        { name: 'Porcino', type: 'effect', note: 69 },
+        { name: 'Portabello', type: 'effect', note: 71 }
     ],
 
     ofType : function(type) {

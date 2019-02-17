@@ -114,12 +114,12 @@ class Draw {
             this._drawCircle(coords.x, coords.y, cauldron.radius);
         }
 
-        let xPos = INGREDIENTS_PANEL_X + 20;
+        let xPos = INGREDIENTS_PANEL_X + 40;
         let yPos = INGREDIENTS_PANEL_Y + 15;
 
         this._drawIngredientRow(this.ingredients.ofType('emitter'), xPos, yPos, 'red');
 
-        xPos = INGREDIENTS_PANEL_X + 20;
+        xPos = INGREDIENTS_PANEL_X + 40;
         yPos += INGREDIENT_HEIGHT + INGREDIENT_VERTICAL_SEPARATION;
 
         this._drawIngredientRow(this.ingredients.ofType('effect'), xPos, yPos, 'blue');
@@ -256,7 +256,7 @@ class Draw {
             this._drawTriangle(x, y, INGREDIENT_WIDTH, INGREDIENT_HEIGHT, isSelected);
 
             this.context.fillStyle = 'black';
-            this._drawText(ingredient.name, x - (INGREDIENT_WIDTH/2), y + INGREDIENT_HEIGHT + INGREDIENT_NAME_BUFFER);
+            this._drawText(ingredient.name, x - (3*ingredient.name.length), y + INGREDIENT_HEIGHT + INGREDIENT_NAME_BUFFER);
             
             x += INGREDIENT_WIDTH + INGREDIENT_HORIZONTAL_SEPARATION;
         }
