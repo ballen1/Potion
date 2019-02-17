@@ -9,13 +9,13 @@ module.exports = {
         { name: 'Obsidian', type: 'emitter', length: 2 },
         { name: 'Gritstone', type: 'emitter', length: 1 },
     
-        { name: 'Toadstool', type: 'effect', note: 60 },
-        { name: 'Morels', type: 'effect', note: 62 },
-        { name: 'Oyster', type: 'effect', note: 64 },
-        { name: 'Enoki', type: 'effect', note: 65 },
-        { name: 'Chanterelle', type: 'effect', note: 67 },
-        { name: 'Porcino', type: 'effect', note: 69 },
-        { name: 'Portabello', type: 'effect', note: 71 }
+        { name: 'Toadstool', type: 'effect', note: 'C' },
+        { name: 'Morels', type: 'effect', note: 'D' },
+        { name: 'Oyster', type: 'effect', note: 'E' },
+        { name: 'Enoki', type: 'effect', note: 'F' },
+        { name: 'Chanterelle', type: 'effect', note: 'G' },
+        { name: 'Porcino', type: 'effect', note: 'A' },
+        { name: 'Portabello', type: 'effect', note: 'B' }
     ],
 
     ofType : function(type) {
@@ -30,8 +30,8 @@ module.exports = {
         });
     },
 
-    Mushroom : function(mushroom, midi) {
-        return new Mushroom(midi, mushroom.note);
+    Mushroom : function(midi, mushroom, octave) {
+        return new Mushroom(midi, mushroom.note, octave);
     },
 
     Rock : function(rock) {

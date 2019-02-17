@@ -47,6 +47,12 @@ class Potion {
             else if (key == '-') {
                 magician.decreaseBpm();
             }
+            else if (key == '}') {
+                magician.increaseChannel();
+            }
+            else if (key == '{') {
+                magician.decreaseChannel();
+            }
             else if (key == ' ') {
                 if (magician.isRunning) {
                     magician.stop();
@@ -65,7 +71,7 @@ class Potion {
                         cauldron.addIngredient(Ingredients.Rock(ingredient));
                     }
                     else if (ingredient.type == 'effect') {
-                        cauldron.addIngredient(Ingredients.Mushroom(ingredient, this.midi));
+                        cauldron.addIngredient(Ingredients.Mushroom(this.midi, ingredient, magician.octave));
                     }
                 }
             }

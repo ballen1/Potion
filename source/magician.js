@@ -1,9 +1,10 @@
 'use strict';
 
 class Magician {
-    constructor(_bpm, _octave = 4) {
+    constructor(_bpm, _octave = 4, _channel = 1) {
         this.bpm = _bpm;
         this.octave = _octave;
+        this.channel = _channel;
         this.running = false;
 
         this.stirBound = () => this.stir();
@@ -77,6 +78,18 @@ class Magician {
     decreaseOctave() {
         if (this.octave > 0) {
             this.octave -= 1;
+        }
+    }
+
+    increaseChannel() {
+        if (this.channel < 16) {
+            this.channel += 1;
+        }
+    }
+
+    decreaseChannel() {
+        if (this.channel > 1) {
+            this.channel -= 1;
         }
     }
 

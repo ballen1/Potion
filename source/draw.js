@@ -28,6 +28,15 @@ const OCTAVE_WIDGET_WIDTH = VISUAL_PANEL_WIDTH - 20;
 const OCTAVE_WIDGET_HEIGHT = 30;
 const OCTAVE_WIDGET_SEGMENTS = 10;
 
+const CHANNEL_LABEL_X = VISUAL_PANEL_X + 10;
+const CHANNEL_LABEL_Y = OCTAVE_WIDGET_Y + OCTAVE_WIDGET_HEIGHT + 20;
+
+const CHANNEL_WIDGET_X = VISUAL_PANEL_X + 10;
+const CHANNEL_WIDGET_Y = CHANNEL_LABEL_Y + 10;
+const CHANNEL_WIDGET_WIDTH = VISUAL_PANEL_WIDTH - 20;
+const CHANNEL_WIDGET_HEIGHT = 30;
+const CHANNEL_WIDGET_SEGMENTS = 16;
+
 const MIDI_OUTPUT_X = CONTROL_PANEL_X + 10;
 const MIDI_OUTPUT_Y = CONTROL_PANEL_Y + 20;
 
@@ -111,6 +120,14 @@ class Draw {
                       OCTAVE_WIDGET_Y,
                       OCTAVE_WIDGET_WIDTH / OCTAVE_WIDGET_SEGMENTS,
                       OCTAVE_WIDGET_HEIGHT,
+                      true);
+
+        this._drawText("Channel: " + this.magician.channel, CHANNEL_LABEL_X, CHANNEL_LABEL_Y);
+        this._drawBox(CHANNEL_WIDGET_X, CHANNEL_WIDGET_Y, CHANNEL_WIDGET_WIDTH, CHANNEL_WIDGET_HEIGHT);
+        this._drawBox(CHANNEL_WIDGET_X + (this.magician.channel - 1) * (CHANNEL_WIDGET_WIDTH / CHANNEL_WIDGET_SEGMENTS),
+                      CHANNEL_WIDGET_Y,
+                      CHANNEL_WIDGET_WIDTH / CHANNEL_WIDGET_SEGMENTS,
+                      CHANNEL_WIDGET_HEIGHT,
                       true);
         
         const prevStrokeStyle = this.context.strokeStyle;
