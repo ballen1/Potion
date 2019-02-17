@@ -70,6 +70,11 @@ class Potion {
                 drawer.drawCanvas();
                 magician.begin();
                 this.input.ready();
+
+                // Draw at 30 fps
+                setInterval(() => {
+                    drawer.drawCanvas();
+                }, 33);
             }
         }, failure => {
             console.log(failure);

@@ -43,6 +43,12 @@ class Cauldron {
             this.emitter.brew();
         }
     }
+
+    isActive() {
+        if (this.effect) {
+            return this.effect.isEmanating;
+        }
+    }
 };
 
 module.exports = Cauldron;

@@ -109,7 +109,12 @@ class Draw {
                 this._drawCircle(coords.x, coords.y, cauldron.radius + CAULDRON_HIGHLIGHT_BORDER_WIDTH);
             }
 
-            this.context.fillStyle = 'green';
+            if (cauldron.isActive()) {
+                this.context.fillStyle = 'orange';
+            }
+            else {
+                this.context.fillStyle = 'green';
+            }
 
             this._drawCircle(coords.x, coords.y, cauldron.radius);
         }
