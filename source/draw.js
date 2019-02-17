@@ -14,10 +14,19 @@ const VISUAL_BPM_X = VISUAL_PANEL_X + 10;
 const VISUAL_BPM_Y = VISUAL_PANEL_Y + 20;
 
 const BPM_WIDGET_X = VISUAL_PANEL_X + 10;
-const BPM_WIDGET_Y = VISUAL_BPM_Y + 20;
-const BPM_WIDGET_HEIGHT = 30;
+const BPM_WIDGET_Y = VISUAL_BPM_Y + 10;
 const BPM_WIDGET_WIDTH = VISUAL_PANEL_WIDTH - 20;
+const BPM_WIDGET_HEIGHT = 30;
 const BPM_WIDGET_SEGMENTS = 8;
+
+const OCTAVE_LABEL_X = VISUAL_PANEL_X + 10;
+const OCTAVE_LABEL_Y = BPM_WIDGET_Y + BPM_WIDGET_HEIGHT + 20;
+
+const OCTAVE_WIDGET_X = VISUAL_PANEL_X + 10;
+const OCTAVE_WIDGET_Y = OCTAVE_LABEL_Y + 10;
+const OCTAVE_WIDGET_WIDTH = VISUAL_PANEL_WIDTH - 20;
+const OCTAVE_WIDGET_HEIGHT = 30;
+const OCTAVE_WIDGET_SEGMENTS = 10;
 
 const MIDI_OUTPUT_X = CONTROL_PANEL_X + 10;
 const MIDI_OUTPUT_Y = CONTROL_PANEL_Y + 20;
@@ -96,6 +105,14 @@ class Draw {
                           true);
         }
 
+        this._drawText("Octave: " + this.magician.octave, OCTAVE_LABEL_X, OCTAVE_LABEL_Y);
+        this._drawBox(OCTAVE_WIDGET_X, OCTAVE_WIDGET_Y, OCTAVE_WIDGET_WIDTH, OCTAVE_WIDGET_HEIGHT);
+        this._drawBox(OCTAVE_WIDGET_X + this.magician.octave * (OCTAVE_WIDGET_WIDTH / OCTAVE_WIDGET_SEGMENTS),
+                      OCTAVE_WIDGET_Y,
+                      OCTAVE_WIDGET_WIDTH / OCTAVE_WIDGET_SEGMENTS,
+                      OCTAVE_WIDGET_HEIGHT,
+                      true);
+        
         const prevStrokeStyle = this.context.strokeStyle;
         const prevFillStyle = this.context.fillStyle;
 

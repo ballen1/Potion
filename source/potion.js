@@ -28,14 +28,32 @@ class Potion {
             let yPos = click.clientY;
 
             drawer.handleClick(xPos, yPos);
-            drawer.drawCanvas();
         };
 
         this.input.keydownHandler = (key) => {
             if (key == 'a') {
                 let coords = drawer.screenToWorldCoords(this.canvasMouseX, this.canvasMouseY);
                 magician.addCauldron(new Cauldron(coords.x, coords.y));
-                drawer.drawCanvas();
+            }
+            else if (key == ']') {
+                magician.increaseOctave();
+            }
+            else if (key == '[') {
+                magician.decreaseOctave();
+            }
+            else if (key == '+') {
+                magician.increaseBpm();
+            }
+            else if (key == '-') {
+                magician.decreaseBpm();
+            }
+            else if (key == ' ') {
+                if (magician.isRunning) {
+                    magician.stop();
+                }
+                else {
+                    magician.start();
+                }
             }
             else if (key == 'Enter') {
                 let ingredient = Ingredients.byName(drawer.selectedIngredient);
@@ -53,7 +71,6 @@ class Potion {
             }
             else if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].indexOf(key) > -1) {
                 drawer.handleDrawerKeyDown(key);
-                drawer.drawCanvas();
             }
         };
 
@@ -68,7 +85,7 @@ class Potion {
             if (ports.outputs.length > 0) {
                 this.midi.output = ports.outputs[0];
                 drawer.drawCanvas();
-                magician.begin();
+                magician.start();
                 this.input.ready();
 
                 // Draw at 30 fps
