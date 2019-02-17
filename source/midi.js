@@ -16,12 +16,14 @@ class Midi {
         });
     }
 
-    noteOn(note, octave, velocity) {
-        this.output.send([0x90, this._noteToNumber(note, octave), velocity]);
+    noteOn(note, channel, octave, velocity) {
+        let message = 0x90 + channel;
+        this.output.send([message, this._noteToNumber(note, octave), velocity]);
     }
 
-    noteOff(note, octave) {
-        this.output.send([0x90, this._noteToNumber(note, octave), 0]);
+    noteOff(note, channel, octave) {
+        let message = 0x90 + channel;
+        this.output.send([message, this._noteToNumber(note, octave), 0]);
     }
 
     _noteToNumber(note, octave = 0) {
@@ -32,7 +34,7 @@ class Midi {
                 return 0 + octaveShift;
             case 'D':
                 return 2 + octaveShift;
-            case 'E:':
+            case 'E':
                 return 4 + octaveShift;
             case 'F':
                 return 5 + octaveShift;

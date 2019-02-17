@@ -124,7 +124,7 @@ class Draw {
 
         this._drawText("Channel: " + this.magician.channel, CHANNEL_LABEL_X, CHANNEL_LABEL_Y);
         this._drawBox(CHANNEL_WIDGET_X, CHANNEL_WIDGET_Y, CHANNEL_WIDGET_WIDTH, CHANNEL_WIDGET_HEIGHT);
-        this._drawBox(CHANNEL_WIDGET_X + (this.magician.channel - 1) * (CHANNEL_WIDGET_WIDTH / CHANNEL_WIDGET_SEGMENTS),
+        this._drawBox(CHANNEL_WIDGET_X + this.magician.channel * (CHANNEL_WIDGET_WIDTH / CHANNEL_WIDGET_SEGMENTS),
                       CHANNEL_WIDGET_Y,
                       CHANNEL_WIDGET_WIDTH / CHANNEL_WIDGET_SEGMENTS,
                       CHANNEL_WIDGET_HEIGHT,

@@ -1,9 +1,10 @@
 'use strict';
 
 class Mushroom {
-    constructor(_midi, _note, _octave) {
+    constructor(_midi, _note, _channel, _octave) {
         this.type = 'effect';
         this.midi = _midi;
+        this.channel = _channel;
         this.note = _note;
         this.octave = _octave;
 
@@ -14,7 +15,7 @@ class Mushroom {
     }
 
     emanate() {
-        this.midi.noteOn(this.note, this.octave, 0x45);
+        this.midi.noteOn(this.note, this.channel, this.octave, 0x45);
         this.time = Date.now();
         this.isEmanating = true;
 
@@ -24,7 +25,7 @@ class Mushroom {
             this.time = currentTime;
 
             if (this.elapsed >= 200) {
-                this.midi.noteOff(this.note, this.octave);
+                this.midi.noteOff(this.note, this.channel, this.octave);
                 this.elapsed = 0;
                 this.isEmanating = false;
                 clearInterval(id);

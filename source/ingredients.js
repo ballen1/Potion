@@ -30,8 +30,8 @@ module.exports = {
         });
     },
 
-    Mushroom : function(midi, mushroom, octave) {
-        return new Mushroom(midi, mushroom.note, octave);
+    Mushroom : function(midi, mushroom, channel, octave) {
+        return new Mushroom(midi, mushroom.note, channel, octave);
     },
 
     Rock : function(rock) {

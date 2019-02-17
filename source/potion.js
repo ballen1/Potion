@@ -71,7 +71,7 @@ class Potion {
                         cauldron.addIngredient(Ingredients.Rock(ingredient));
                     }
                     else if (ingredient.type == 'effect') {
-                        cauldron.addIngredient(Ingredients.Mushroom(this.midi, ingredient, magician.octave));
+                        cauldron.addIngredient(Ingredients.Mushroom(this.midi, ingredient, magician.channel, magician.octave));
                     }
                 }
             }

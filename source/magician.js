@@ -1,7 +1,7 @@
 'use strict';
 
 class Magician {
-    constructor(_bpm, _octave = 4, _channel = 1) {
+    constructor(_bpm, _octave = 4, _channel = 0) {
         this.bpm = _bpm;
         this.octave = _octave;
         this.channel = _channel;
@@ -82,13 +82,13 @@ class Magician {
     }
 
     increaseChannel() {
-        if (this.channel < 16) {
+        if (this.channel < 15) {
             this.channel += 1;
         }
     }
 
     decreaseChannel() {
-        if (this.channel > 1) {
+        if (this.channel > 0) {
             this.channel -= 1;
         }
     }
