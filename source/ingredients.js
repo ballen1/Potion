@@ -5,9 +5,10 @@ const Rock = require('./ingredients/rock');
 
 module.exports = {
     all : [
-        { name: 'Basalt', type: 'emitter', length: 4 },
-        { name: 'Obsidian', type: 'emitter', length: 2 },
-        { name: 'Gritstone', type: 'emitter', length: 1 },
+        { name: 'Basalt', type: 'emitter', position: 4 },
+        { name: 'Pumice', type: 'emitter', position: 3 },
+        { name: 'Obsidian', type: 'emitter', position: 2 },
+        { name: 'Gritstone', type: 'emitter', position: 1 },
     
         { name: 'Toadstool', type: 'effect', note: 'C' },
         { name: 'Morels', type: 'effect', note: 'D' },
@@ -35,6 +36,6 @@ module.exports = {
     },
 
     Rock : function(rock) {
-        return new Rock(rock.length);
+        return new Rock(rock.position);
     }
 };

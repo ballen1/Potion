@@ -1,21 +1,19 @@
 'use strict';
 
 class Rock {
-    constructor(_interval) {
+    constructor(_position) {
         this.type = 'emitter';
-        this.interval = _interval;
+        this.position = _position;
         this.signal = null;
 
         this.elapsed = 0;
     }
 
-    brew() {
+    brew(beat) {
         if (this.signal) {
-            this.elapsed += 1;
-            if (this.elapsed === this.interval) {
+            if (beat === this.position) {
                 this.signal();
-                this.elapsed = 0;
-            }   
+            }
         }
     }
 };

@@ -7,6 +7,10 @@ class Magician {
         this.channel = _channel;
         this.running = false;
 
+        this.beatUnit = 4;
+        this.beatsPerBar = 4;
+        this.beat = 0;
+
         this.stirBound = () => this.stir();
         this.stirrer = undefined;
 
@@ -25,10 +29,11 @@ class Magician {
     }
 
     stop() {
+        clearTimeout(this.stirrer);
         this.time = 0;
         this.elapsed = 0;
         this.running = false;
-        clearTimeout(this.stirrer);
+        this.beat = 0;
     }
 
     stir() {
@@ -40,12 +45,14 @@ class Magician {
             this.elapsed = 0;
 
             for (let cauldron of this.cauldrons) {
-                cauldron.bubble();
+                cauldron.bubble(this.beat + 1);
             }
 
             for (let observer of this.observers) {
                 observer();
             }
+
+            this.beat = (this.beat + 1 ) % this.beatsPerBar;
         }
 
         if (this.running) {

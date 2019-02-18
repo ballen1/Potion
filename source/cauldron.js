@@ -38,9 +38,9 @@ class Cauldron {
         }
     }
 
-    bubble() {
+    bubble(beat) {
         if (this.emitter) {
-            this.emitter.brew();
+            this.emitter.brew(beat);
         }
     }
 
