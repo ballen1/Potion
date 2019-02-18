@@ -59,9 +59,7 @@ class Magician {
     }
 
     get beatDuration() {
-        // The 50ms is to add a bit of buffer, otherwise the notes will just bleed together.
-        // Investigate this more in the future to see how this may be improved.
-        return (60000 / this.bpm) - 50;
+        return this._beatDuration();
     }
 
     addCauldron(cauldron) {
@@ -70,10 +68,12 @@ class Magician {
 
     increaseBpm() {
         this.bpm += 1;
+        this._updateCauldrons();
     }
 
     decreaseBpm() {
         this.bpm -= 1;
+        this._updateCauldrons()
     }
 
     increaseOctave() {
@@ -102,6 +102,19 @@ class Magician {
 
     get isRunning() {
         return this.running;
+    }
+
+    _beatDuration() {
+        // The 50ms is to add a bit of buffer, otherwise the notes will just bleed together.
+        // Investigate this more in the future to see how this may be improved.
+        return (60000 / this.bpm) - 50;
+    }
+
+    _updateCauldrons() {
+        let newDuration = this._beatDuration();
+        for (let cauldron of this.cauldrons) {
+            cauldron.updateBeatDuration(newDuration);
+        }
     }
 };
 

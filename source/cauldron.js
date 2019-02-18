@@ -57,6 +57,12 @@ class Cauldron {
             return this.effect.isEmanating;
         }
     }
+
+    updateBeatDuration(newDuration) {
+        if (this.effect) {
+            this.effect.beatMs = newDuration;
+        }
+    }
 };
 
 module.exports = Cauldron;
