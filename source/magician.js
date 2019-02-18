@@ -9,7 +9,7 @@ class Magician {
 
         this.beatUnit = 4;
         this.beatsPerBar = 4;
-        this.beat = 0;
+        this.beat = -1;
 
         this.stirBound = () => this.stir();
         this.stirrer = undefined;
@@ -18,8 +18,6 @@ class Magician {
         this.elapsed = 0;
 
         this.cauldrons = [];
-
-        this.observers = [];
     }
 
     start() {
@@ -33,7 +31,7 @@ class Magician {
         this.time = 0;
         this.elapsed = 0;
         this.running = false;
-        this.beat = 0;
+        this.beat = -1;
     }
 
     stir() {
@@ -42,17 +40,13 @@ class Magician {
         this.time = currentTime;
 
         if (this.elapsed >= (60000 / this.bpm)) {
+            this.beat = (this.beat + 1 ) % this.beatsPerBar;
+
             this.elapsed = 0;
 
             for (let cauldron of this.cauldrons) {
                 cauldron.bubble(this.beat + 1);
             }
-
-            for (let observer of this.observers) {
-                observer();
-            }
-
-            this.beat = (this.beat + 1 ) % this.beatsPerBar;
         }
 
         if (this.running) {
@@ -60,12 +54,12 @@ class Magician {
         }
     }
 
-    addCauldron(cauldron) {
-        this.cauldrons.push(cauldron);
+    get currentBeat() {
+        return (Math.max(0, this.beat));
     }
 
-    subscribe(callback) {
-        this.observers.push(callback);
+    addCauldron(cauldron) {
+        this.cauldrons.push(cauldron);
     }
 
     increaseBpm() {

@@ -17,7 +17,6 @@ const BPM_WIDGET_X = VISUAL_PANEL_X + 10;
 const BPM_WIDGET_Y = VISUAL_BPM_Y + 10;
 const BPM_WIDGET_WIDTH = VISUAL_PANEL_WIDTH - 20;
 const BPM_WIDGET_HEIGHT = 30;
-const BPM_WIDGET_SEGMENTS = 8;
 
 const OCTAVE_LABEL_X = VISUAL_PANEL_X + 10;
 const OCTAVE_LABEL_Y = BPM_WIDGET_Y + BPM_WIDGET_HEIGHT + 20;
@@ -67,28 +66,10 @@ class Draw {
 
         this.magician = _magician;
 
-        this.magicianUpdateBound = () => this.magicianUpdate();
-        this.magician.subscribe(this.magicianUpdateBound);
-
         this.context.font = '14px monospace';
 
         this.selectedIngredient = this.ingredients.all[0].name;
         this.selectedCauldron = null;
-
-        this.currentBpmSegment = 0;
-        this.bpmOn = false;
-    }
-
-    magicianUpdate() {
-        if (this.bpmOn) {
-            this.currentBpmSegment = (this.currentBpmSegment + 1) % BPM_WIDGET_SEGMENTS;
-        }
-        else {
-            this.bpmOn = true;
-            this.currentBpmSegment = 0;
-        }
-
-        this.drawCanvas();
     }
 
     drawCanvas() {
@@ -106,13 +87,11 @@ class Draw {
             VISUAL_BPM_X, VISUAL_BPM_Y);
         this._drawBox(BPM_WIDGET_X, BPM_WIDGET_Y, BPM_WIDGET_WIDTH, BPM_WIDGET_HEIGHT);
 
-        if (this.bpmOn) {
-            this._drawBox(BPM_WIDGET_X + this.currentBpmSegment * (BPM_WIDGET_WIDTH / BPM_WIDGET_SEGMENTS),
-                          BPM_WIDGET_Y,
-                          BPM_WIDGET_WIDTH / BPM_WIDGET_SEGMENTS,
-                          BPM_WIDGET_HEIGHT,
-                          true);
-        }
+        this._drawBox(BPM_WIDGET_X + this.magician.currentBeat * (BPM_WIDGET_WIDTH / this.magician.beatsPerBar),
+                        BPM_WIDGET_Y,
+                        BPM_WIDGET_WIDTH / this.magician.beatsPerBar,
+                        BPM_WIDGET_HEIGHT,
+                        true);
 
         this._drawText("Octave: " + this.magician.octave, OCTAVE_LABEL_X, OCTAVE_LABEL_Y);
         this._drawBox(OCTAVE_WIDGET_X, OCTAVE_WIDGET_Y, OCTAVE_WIDGET_WIDTH, OCTAVE_WIDGET_HEIGHT);

@@ -16,7 +16,10 @@ module.exports = {
         { name: 'Enoki', type: 'effect', note: 'F' },
         { name: 'Chanterelle', type: 'effect', note: 'G' },
         { name: 'Porcino', type: 'effect', note: 'A' },
-        { name: 'Portabello', type: 'effect', note: 'B' }
+        { name: 'Portabello', type: 'effect', note: 'B' },
+
+        { name: '', type: 'length', length: 1},
+        { name: '', type: 'length', length: 0.5}
     ],
 
     ofType : function(type) {
