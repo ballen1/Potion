@@ -1,14 +1,15 @@
 'use strict';
 
+const Animal = require('./ingredients/animal');
 const Mushroom = require('./ingredients/mushroom');
 const Rock = require('./ingredients/rock');
 
 module.exports = {
     all : [
-        { name: 'Basalt', type: 'emitter', position: 4 },
-        { name: 'Pumice', type: 'emitter', position: 3 },
-        { name: 'Obsidian', type: 'emitter', position: 2 },
-        { name: 'Gritstone', type: 'emitter', position: 1 },
+        { name: 'Basalt', type: 'emitter', position: 1 },
+        { name: 'Pumice', type: 'emitter', position: 2 },
+        { name: 'Obsidian', type: 'emitter', position: 3 },
+        { name: 'Gritstone', type: 'emitter', position: 4 },
     
         { name: 'Toadstool', type: 'effect', note: 'C' },
         { name: 'Morels', type: 'effect', note: 'D' },
@@ -18,8 +19,9 @@ module.exports = {
         { name: 'Porcino', type: 'effect', note: 'A' },
         { name: 'Portabello', type: 'effect', note: 'B' },
 
-        { name: '', type: 'length', length: 1},
-        { name: '', type: 'length', length: 0.5}
+        { name: 'Spider Legs', type: 'length', length: 1},
+        { name: 'Talons', type: 'length', length: 2},
+        { name: 'Hairs', type: 'length', length: 4}
     ],
 
     ofType : function(type) {
@@ -34,11 +36,15 @@ module.exports = {
         });
     },
 
-    Mushroom : function(midi, mushroom, channel, octave) {
-        return new Mushroom(midi, mushroom.note, channel, octave);
+    Mushroom : function(midi, mushroom, channel, octave, beatMs) {
+        return new Mushroom(midi, mushroom.note, channel, octave, beatMs);
     },
 
     Rock : function(rock) {
         return new Rock(rock.position);
+    },
+
+    Animal : function(animal) {
+        return new Animal(animal.length);
     }
 };

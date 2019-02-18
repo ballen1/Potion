@@ -9,6 +9,7 @@ class Cauldron {
 
         this.emitter = null;
         this.effect = null;
+        this.length = null;
     }
 
     get radius() {
@@ -29,8 +30,15 @@ class Cauldron {
         if (ingredient.type === 'emitter') {
             this.emitter = ingredient;
         }
-        else if (ingredient.type == 'effect') {
+        else if (ingredient.type === 'effect') {
             this.effect = ingredient;
+            this.effect.animal = this.length;
+        }
+        else if (ingredient.type === 'length') {
+            this.length = ingredient;
+            if (this.effect) {
+                this.effect.animal = this.length;
+            }
         }
 
         if (this.emitter && this.effect) {

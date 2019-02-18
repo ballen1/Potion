@@ -8,7 +8,7 @@ const CONTROL_PANEL_HEIGHT = 30;
 const VISUAL_PANEL_X = CONTROL_PANEL_X + CONTROL_PANEL_WIDTH + 10;
 const VISUAL_PANEL_Y = CONTROL_PANEL_Y;
 const VISUAL_PANEL_WIDTH = 190
-const VISUAL_PANEL_HEIGHT = 580
+const VISUAL_PANEL_HEIGHT = 680
 
 const VISUAL_BPM_X = VISUAL_PANEL_X + 10;
 const VISUAL_BPM_Y = VISUAL_PANEL_Y + 20;
@@ -47,7 +47,7 @@ const MAIN_PANEL_HEIGHT = 400;
 const INGREDIENTS_PANEL_X = MAIN_PANEL_X;
 const INGREDIENTS_PANEL_Y = MAIN_PANEL_Y + MAIN_PANEL_HEIGHT + 10;
 const INGREDIENTS_WIDTH = MAIN_PANEL_WIDTH;
-const INGREDIENTS_HEIGHT = 130;
+const INGREDIENTS_HEIGHT = 230;
 
 const INGREDIENT_WIDTH = 20;
 const INGREDIENT_HEIGHT = 20;
@@ -141,6 +141,11 @@ class Draw {
         yPos += INGREDIENT_HEIGHT + INGREDIENT_VERTICAL_SEPARATION;
 
         this._drawIngredientRow(this.ingredients.ofType('effect'), xPos, yPos, 'blue');
+
+        xPos = INGREDIENTS_PANEL_X + 40;
+        yPos += INGREDIENT_HEIGHT + INGREDIENT_VERTICAL_SEPARATION;
+
+        this._drawIngredientRow(this.ingredients.ofType('length'), xPos, yPos, 'purple');
 
         this.context.strokeStyle = prevStrokeStyle;
         this.context.fillStyle = prevFillStyle;

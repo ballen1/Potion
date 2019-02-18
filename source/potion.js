@@ -11,7 +11,7 @@ class Potion {
     constructor() {
         this.canvas = document.createElement('canvas');
         this.canvas.width = 1000;
-        this.canvas.height = 600;
+        this.canvas.height = 700;
         document.body.appendChild(this.canvas);
 
         this.midi = new Midi();
@@ -71,7 +71,10 @@ class Potion {
                         cauldron.addIngredient(Ingredients.Rock(ingredient));
                     }
                     else if (ingredient.type == 'effect') {
-                        cauldron.addIngredient(Ingredients.Mushroom(this.midi, ingredient, magician.channel, magician.octave));
+                        cauldron.addIngredient(Ingredients.Mushroom(this.midi, ingredient, magician.channel, magician.octave, magician.beatDuration));
+                    }
+                    else if (ingredient.type == 'length') {
+                        cauldron.addIngredient(Ingredients.Animal(ingredient));
                     }
                 }
             }

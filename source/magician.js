@@ -58,6 +58,12 @@ class Magician {
         return (Math.max(0, this.beat));
     }
 
+    get beatDuration() {
+        // The 50ms is to add a bit of buffer, otherwise the notes will just bleed together.
+        // Investigate this more in the future to see how this may be improved.
+        return (60000 / this.bpm) - 50;
+    }
+
     addCauldron(cauldron) {
         this.cauldrons.push(cauldron);
     }
