@@ -209,13 +209,19 @@ class Draw {
             MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT,
             x, y)) {
             let coords = this.screenToWorldCoords(x, y);
+            let clear = true;
             for (let cauldron of this.magician.cauldrons) {
                 let bounds = cauldron.boundingBox;
                 if (this._isPointInRect(bounds.x, bounds.y,
                     bounds.w, bounds.h, coords.x, coords.y)) {
                     this.selectedCauldron = cauldron;
+                    clear = false;
                     break;
                 }
+            }
+
+            if (clear) {
+                this.selectedCauldron = null;
             }
         }
     }
