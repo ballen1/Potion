@@ -1,5 +1,7 @@
 'use strict';
 
+const { bboxCollision } = require('./collision');
+
 class Magician {
     constructor(_bpm, _octave = 4, _channel = 0) {
         this.bpm = _bpm;
@@ -60,6 +62,16 @@ class Magician {
 
     get beatDuration() {
         return this._beatDuration();
+    }
+
+    willAcceptCauldron(potentialCauldron) {
+        for (let cauldron of this.cauldrons) {
+            if (bboxCollision(cauldron.boundingBox, potentialCauldron.boundingBox)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     addCauldron(cauldron) {

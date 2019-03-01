@@ -241,6 +241,14 @@ class Draw {
         }
     }
 
+    isInWorldRegion(x, y) {
+        return this._isPointInRect(
+                MAIN_PANEL_X, MAIN_PANEL_Y,
+                MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT,
+                x, y
+            );
+    }
+
     _drawText(text, x, y) {
         this.context.fillText(text, x, y);
     }

@@ -32,8 +32,17 @@ class Potion {
 
         this.input.keydownHandler = (key) => {
             if (key == 'a') {
-                let coords = drawer.screenToWorldCoords(this.canvasMouseX, this.canvasMouseY);
-                magician.addCauldron(new Cauldron(coords.x, coords.y));
+                let x = this.canvasMouseX;
+                let y = this.canvasMouseY;
+
+                if (drawer.isInWorldRegion(x, y)) {
+                    let coords = drawer.screenToWorldCoords(x, y);
+                    let potentialCauldron = new Cauldron(coords.x, coords.y);
+
+                    if (magician.willAcceptCauldron(potentialCauldron)) {
+                        magician.addCauldron(new Cauldron(coords.x, coords.y));
+                    }
+                }
             }
             else if (key == ']') {
                 magician.increaseOctave();
