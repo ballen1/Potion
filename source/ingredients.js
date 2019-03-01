@@ -3,6 +3,7 @@
 const Animal = require('./ingredients/animal');
 const Mushroom = require('./ingredients/mushroom');
 const Rock = require('./ingredients/rock');
+const Liquid = require('./ingredients/liquid');
 
 module.exports = {
     all : [
@@ -51,5 +52,9 @@ module.exports = {
 
     Animal : function(animal) {
         return new Animal(animal.length);
+    },
+
+    Liquid : function(liquid) {
+        return new Liquid();
     }
 };
