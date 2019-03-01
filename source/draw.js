@@ -2,7 +2,7 @@
 
 const CONTROL_PANEL_X = 10;
 const CONTROL_PANEL_Y = 10;
-const CONTROL_PANEL_WIDTH = 780;
+const CONTROL_PANEL_WIDTH = 980;
 const CONTROL_PANEL_HEIGHT = 30;
 
 const VISUAL_PANEL_X = CONTROL_PANEL_X + CONTROL_PANEL_WIDTH + 10;
@@ -49,9 +49,10 @@ const INGREDIENTS_PANEL_Y = MAIN_PANEL_Y + MAIN_PANEL_HEIGHT + 10;
 const INGREDIENTS_WIDTH = MAIN_PANEL_WIDTH;
 const INGREDIENTS_HEIGHT = 230;
 
-const INGREDIENT_WIDTH = 20;
+const INGREDIENT_WIDTH = 15;
 const INGREDIENT_HEIGHT = 20;
 const INGREDIENT_NAME_BUFFER = 20;
+const INGREDIENT_FONT_SIZE = 5;
 const INGREDIENT_HORIZONTAL_SEPARATION = INGREDIENT_WIDTH * 4;
 const INGREDIENT_VERTICAL_SEPARATION = INGREDIENT_HEIGHT + 25;
 
@@ -276,6 +277,9 @@ class Draw {
     }
 
     _drawIngredientRow(ingredients, x, y, color) {
+        let prevFontStyle = this.context.font;
+        this.context.font = '12px monospace';
+
         this.context.strokeStyle = color;
 
         for (let ingredient of ingredients) {
@@ -289,6 +293,8 @@ class Draw {
             
             x += INGREDIENT_WIDTH + INGREDIENT_HORIZONTAL_SEPARATION;
         }
+
+        this.context.font = prevFontStyle;
     }
 
     _isPointInRect(x, y, w, h, pointX, pointY) {

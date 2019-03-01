@@ -10,7 +10,7 @@ const Input = require('./input');
 class Potion {
     constructor() {
         this.canvas = document.createElement('canvas');
-        this.canvas.width = 1000;
+        this.canvas.width = 1200;
         this.canvas.height = 700;
         document.body.appendChild(this.canvas);
 

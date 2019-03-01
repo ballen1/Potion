@@ -12,11 +12,16 @@ module.exports = {
         { name: 'Gritstone', type: 'emitter', position: 4 },
     
         { name: 'Toadstool', type: 'effect', note: 'C' },
+        { name: 'Garlic', type: 'effect', note: 'C#' },
         { name: 'Morels', type: 'effect', note: 'D' },
+        { name: 'Ginger', type: 'effect', note: 'D#' },
         { name: 'Oyster', type: 'effect', note: 'E' },
         { name: 'Enoki', type: 'effect', note: 'F' },
+        { name: 'Beet', type: 'effect', note: 'F#' },
         { name: 'Chanterelle', type: 'effect', note: 'G' },
+        { name: 'Turnip', type: 'effect', note: 'G#' },
         { name: 'Porcino', type: 'effect', note: 'A' },
+        { name: 'Rutabaga', type: 'effect', note: 'A#' },
         { name: 'Portabello', type: 'effect', note: 'B' },
 
         { name: 'Spider Legs', type: 'length', length: 1},
