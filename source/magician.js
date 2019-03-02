@@ -1,6 +1,6 @@
 'use strict';
 
-const { bboxCollision } = require('./collision');
+const { circleCollision } = require('./collision');
 
 class Magician {
     constructor(_bpm, _octave = 4, _channel = 0) {
@@ -66,7 +66,7 @@ class Magician {
 
     willAcceptCauldron(potentialCauldron) {
         for (let cauldron of this.cauldrons) {
-            if (bboxCollision(cauldron.boundingBox, potentialCauldron.boundingBox)) {
+            if (circleCollision(cauldron.boundingCircle, potentialCauldron.boundingCircle)) {
                 return false;
             }
         }

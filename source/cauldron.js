@@ -16,14 +16,14 @@ class Cauldron {
         return CAULDRON_RADIUS;
     }
 
-    get boundingBox() {
-        let b = {
-            x: this.x - CAULDRON_RADIUS,
-            y: this.y - CAULDRON_RADIUS,
-            w: CAULDRON_RADIUS * 2,
-            h: CAULDRON_RADIUS * 2
-        }
-        return b;
+    get boundingCircle() {
+        let circle = {
+            x : this.x,
+            y : this.y,
+            radius : CAULDRON_RADIUS
+        };
+
+        return circle;
     }
 
     addIngredient(ingredient) {

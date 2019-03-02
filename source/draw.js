@@ -1,5 +1,7 @@
 'use strict';
 
+const { isPointInCircle } = require('./collision');
+
 const CONTROL_PANEL_X = 10;
 const CONTROL_PANEL_Y = 10;
 const CONTROL_PANEL_WIDTH = 980;
@@ -211,9 +213,7 @@ class Draw {
             let coords = this.screenToWorldCoords(x, y);
             let clear = true;
             for (let cauldron of this.magician.cauldrons) {
-                let bounds = cauldron.boundingBox;
-                if (this._isPointInRect(bounds.x, bounds.y,
-                    bounds.w, bounds.h, coords.x, coords.y)) {
+                if (isPointInCircle(coords.x, coords.y, cauldron.boundingCircle)) {
                     this.selectedCauldron = cauldron;
                     clear = false;
                     break;

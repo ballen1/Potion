@@ -19,6 +19,35 @@ module.exports = {
             b_y2 < a_y1 ||
             b_y1 > a_y2
         )
-    }
+    },
 
+    circleCollision : function(a, b) {
+        let dx = Math.abs(a.x - b.x);
+        let dy = Math.abs(a.y - b.y);
+
+        let dist = Math.sqrt(dx*dx + dy*dy);
+
+        let minDist = a.radius + b.radius;
+
+        if (dist < minDist) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    },
+
+    isPointInCircle : function(x, y, circle) {
+        let dx = Math.abs(x - circle.x);
+        let dy = Math.abs(y - circle.y);
+
+        let dist = Math.sqrt(dx*dx + dy*dy);
+
+        if (dist < circle.radius) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
