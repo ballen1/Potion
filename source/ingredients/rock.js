@@ -1,9 +1,9 @@
 'use strict';
 
 class Rock {
-    constructor(_position) {
+    constructor(_def) {
         this.type = 'emitter';
-        this.position = _position;
+        this.position = _def.position;
         this.signal = null;
 
         this.elapsed = 0;

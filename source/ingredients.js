@@ -43,18 +43,18 @@ module.exports = {
     },
 
     Mushroom : function(midi, mushroom, channel, octave, beatMs) {
-        return new Mushroom(midi, mushroom.note, channel, octave, beatMs);
+        return new Mushroom(midi, mushroom, channel, octave, beatMs);
     },
 
     Rock : function(rock) {
-        return new Rock(rock.position);
+        return new Rock(rock);
     },
 
     Animal : function(animal) {
-        return new Animal(animal.length);
+        return new Animal(animal);
     },
 
     Liquid : function(liquid) {
-        return new Liquid();
+        return new Liquid(liquid);
     }
 };

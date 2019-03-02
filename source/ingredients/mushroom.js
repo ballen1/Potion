@@ -1,11 +1,11 @@
 'use strict';
 
 class Mushroom {
-    constructor(_midi, _note, _channel, _octave, _beatMs) {
+    constructor(_midi, _def, _channel, _octave, _beatMs) {
         this.type = 'effect';
         this.midi = _midi;
         this.channel = _channel;
-        this.note = _note;
+        this.note = _def.note;
         this.octave = _octave;
         this.beatMs = _beatMs;
 

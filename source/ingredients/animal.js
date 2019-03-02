@@ -1,9 +1,9 @@
 'use strict';
 
 class Animal {
-    constructor(_length) {
+    constructor(_def) {
         this.type = 'length';
-        this.length = _length;
+        this.length = _def.length;
     }
 
     get duration() {
