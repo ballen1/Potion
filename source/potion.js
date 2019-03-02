@@ -87,7 +87,10 @@ class Potion {
                     }
                 }
             }
-            else if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].indexOf(key) > -1) {
+            else if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Escape', 'Tab'].indexOf(key) > -1) {
+                drawer.handleDrawerKeyDown(key);
+            }
+            else if (!isNaN(key)) {
                 drawer.handleDrawerKeyDown(key);
             }
         };

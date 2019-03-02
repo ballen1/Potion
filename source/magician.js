@@ -8,6 +8,7 @@ class Magician {
         this.octave = _octave;
         this.channel = _channel;
         this.running = false;
+        this.value = 1;
 
         this.beatUnit = 4;
         this.beatsPerBar = 4;

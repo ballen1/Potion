@@ -12,10 +12,13 @@ class Draw {
 
         this.magician = _magician;
 
-        this.context.font = '14px monospace';
+        this.context.font = 'bold 14px monospace';
 
         this.selectedIngredient = this.ingredients.all[0].name;
         this.selectedCauldron = null;
+
+        this.editValueMode = false;
+        this.editValue = '';
     }
 
     drawCanvas() {
@@ -55,6 +58,35 @@ class Draw {
                       UI.CHANNEL_WIDGET_HEIGHT,
                       true);
         
+        this._drawLine(
+            UI.WIDGET_DIVIDER_1_X, UI.WIDGET_DIVIDER_1_Y,
+            UI.WIDGET_DIVIDER_1_X + UI.WIDGET_DIVIDER_1_WIDTH,
+            UI.WIDGET_DIVIDER_1_Y
+        );
+
+        let prevFontStyle = this.context.font;
+
+        if (this.editValueMode) {
+            this.context.font = 'bold 72px monospace';
+            this.context.fillStyle = 'red';
+
+            let valueText = this.editValue.length < 3 ? (this.editValue + '_') : this.editValue;
+            this._drawText(valueText, UI.VALUE_WIDGET_X, UI.VALUE_WIDGET_Y);
+        }
+        else {
+            this.context.font = 'bold 72px monospace';
+            this._drawText(this.magician.value, UI.VALUE_WIDGET_X, UI.VALUE_WIDGET_Y);
+        }
+
+        this.context.font = prevFontStyle;
+        this.context.fillStyle = 'black';
+
+        this._drawLine(
+            UI.WIDGET_DIVIDER_2_X, UI.WIDGET_DIVIDER_2_Y,
+            UI.WIDGET_DIVIDER_2_X + UI.WIDGET_DIVIDER_2_WIDTH,
+            UI.WIDGET_DIVIDER_2_Y
+        )
+
         const prevStrokeStyle = this.context.strokeStyle;
         const prevFillStyle = this.context.fillStyle;
 
@@ -148,6 +180,28 @@ class Draw {
 
             this.selectedIngredient = this.ingredients.all[index].name;
         }
+        else if (!isNaN(key)) {
+            if (this.editValueMode) {
+                if (this.editValue.length < 3) {
+                    this.editValue += key;
+                }
+            }
+            else {
+                this.editValueMode = true;
+                this.editValue = key;
+            }
+        }
+        else if (key == 'Escape') {
+            this.editValueMode = false;
+            this.editValue = '';
+        }
+        else if (key == 'Tab') {
+            if (this.editValueMode) {
+                this.magician.value = parseInt(this.editValue);
+                this.editValueMode = false;
+                this.editValue = '';
+            }
+        }
     }
 
     handleClick(x, y) {
@@ -205,6 +259,13 @@ class Draw {
         }
     }
 
+    _drawLine(x1, y1, x2, y2) {
+        this.context.beginPath();
+        this.context.moveTo(x1, y1);
+        this.context.lineTo(x2, y2);
+        this.context.stroke();
+    }
+
     _drawCircle(x, y, r) {
         this.context.beginPath();
         this.context.arc(x, y, r, 0, 2 * Math.PI);
@@ -229,7 +290,7 @@ class Draw {
 
     _drawIngredientRow(ingredients, x, y, color) {
         let prevFontStyle = this.context.font;
-        this.context.font = '12px monospace';
+        this.context.font = 'bold 12px monospace';
 
         this.context.strokeStyle = color;
 
