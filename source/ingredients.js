@@ -28,7 +28,9 @@ module.exports = {
 
         { name: 'Spider Legs', type: 'length', length: 1},
         { name: 'Talons', type: 'length', length: 2},
-        { name: 'Hairs', type: 'length', length: 4}
+        { name: 'Hairs', type: 'length', length: 4},
+
+        { name: 'Quartz', type: 'value' }
     ],
 
     ofType : function(type) {

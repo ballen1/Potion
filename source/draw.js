@@ -1,63 +1,7 @@
 'use strict';
 
+const UI = require('./ui_layout');
 const { isPointInCircle } = require('./collision');
-
-const CONTROL_PANEL_X = 10;
-const CONTROL_PANEL_Y = 10;
-const CONTROL_PANEL_WIDTH = 980;
-const CONTROL_PANEL_HEIGHT = 30;
-
-const VISUAL_PANEL_X = CONTROL_PANEL_X + CONTROL_PANEL_WIDTH + 10;
-const VISUAL_PANEL_Y = CONTROL_PANEL_Y;
-const VISUAL_PANEL_WIDTH = 190
-const VISUAL_PANEL_HEIGHT = 680
-
-const VISUAL_BPM_X = VISUAL_PANEL_X + 10;
-const VISUAL_BPM_Y = VISUAL_PANEL_Y + 20;
-
-const BPM_WIDGET_X = VISUAL_PANEL_X + 10;
-const BPM_WIDGET_Y = VISUAL_BPM_Y + 10;
-const BPM_WIDGET_WIDTH = VISUAL_PANEL_WIDTH - 20;
-const BPM_WIDGET_HEIGHT = 30;
-
-const OCTAVE_LABEL_X = VISUAL_PANEL_X + 10;
-const OCTAVE_LABEL_Y = BPM_WIDGET_Y + BPM_WIDGET_HEIGHT + 20;
-
-const OCTAVE_WIDGET_X = VISUAL_PANEL_X + 10;
-const OCTAVE_WIDGET_Y = OCTAVE_LABEL_Y + 10;
-const OCTAVE_WIDGET_WIDTH = VISUAL_PANEL_WIDTH - 20;
-const OCTAVE_WIDGET_HEIGHT = 30;
-const OCTAVE_WIDGET_SEGMENTS = 10;
-
-const CHANNEL_LABEL_X = VISUAL_PANEL_X + 10;
-const CHANNEL_LABEL_Y = OCTAVE_WIDGET_Y + OCTAVE_WIDGET_HEIGHT + 20;
-
-const CHANNEL_WIDGET_X = VISUAL_PANEL_X + 10;
-const CHANNEL_WIDGET_Y = CHANNEL_LABEL_Y + 10;
-const CHANNEL_WIDGET_WIDTH = VISUAL_PANEL_WIDTH - 20;
-const CHANNEL_WIDGET_HEIGHT = 30;
-const CHANNEL_WIDGET_SEGMENTS = 16;
-
-const MIDI_OUTPUT_X = CONTROL_PANEL_X + 10;
-const MIDI_OUTPUT_Y = CONTROL_PANEL_Y + 20;
-
-const MAIN_PANEL_X = CONTROL_PANEL_X;
-const MAIN_PANEL_Y = CONTROL_PANEL_Y + CONTROL_PANEL_HEIGHT + 10;
-const MAIN_PANEL_WIDTH = CONTROL_PANEL_WIDTH;
-const MAIN_PANEL_HEIGHT = 400;
-
-const INGREDIENTS_PANEL_X = MAIN_PANEL_X;
-const INGREDIENTS_PANEL_Y = MAIN_PANEL_Y + MAIN_PANEL_HEIGHT + 10;
-const INGREDIENTS_WIDTH = MAIN_PANEL_WIDTH;
-const INGREDIENTS_HEIGHT = 230;
-
-const INGREDIENT_WIDTH = 15;
-const INGREDIENT_HEIGHT = 20;
-const INGREDIENT_NAME_BUFFER = 20;
-const INGREDIENT_HORIZONTAL_SEPARATION = INGREDIENT_WIDTH * 4;
-const INGREDIENT_VERTICAL_SEPARATION = INGREDIENT_HEIGHT + 15;
-
-const CAULDRON_HIGHLIGHT_BORDER_WIDTH = 3;
 
 class Draw {
     constructor(_canvas, _midi, _ingredients, _magician) {
@@ -76,39 +20,39 @@ class Draw {
 
     drawCanvas() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this._drawBox(CONTROL_PANEL_X, CONTROL_PANEL_Y,
-            CONTROL_PANEL_WIDTH, CONTROL_PANEL_HEIGHT);
-        this._drawText(this.midi.output.name, MIDI_OUTPUT_X, MIDI_OUTPUT_Y);
-        this._drawBox(MAIN_PANEL_X, MAIN_PANEL_Y,
-            MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT);
-        this._drawBox(INGREDIENTS_PANEL_X, INGREDIENTS_PANEL_Y,
-            INGREDIENTS_WIDTH, INGREDIENTS_HEIGHT);
-        this._drawBox(VISUAL_PANEL_X, VISUAL_PANEL_Y,
-            VISUAL_PANEL_WIDTH, VISUAL_PANEL_HEIGHT);
+        this._drawBox(UI.CONTROL_PANEL_X, UI.CONTROL_PANEL_Y,
+            UI.CONTROL_PANEL_WIDTH, UI.CONTROL_PANEL_HEIGHT);
+        this._drawText(this.midi.output.name, UI.MIDI_OUTPUT_X, UI.MIDI_OUTPUT_Y);
+        this._drawBox(UI.MAIN_PANEL_X, UI.MAIN_PANEL_Y,
+            UI.MAIN_PANEL_WIDTH, UI.MAIN_PANEL_HEIGHT);
+        this._drawBox(UI.INGREDIENTS_PANEL_X, UI.INGREDIENTS_PANEL_Y,
+            UI.INGREDIENTS_WIDTH, UI.INGREDIENTS_HEIGHT);
+        this._drawBox(UI.VISUAL_PANEL_X, UI.VISUAL_PANEL_Y,
+            UI.VISUAL_PANEL_WIDTH, UI.VISUAL_PANEL_HEIGHT);
         this._drawText("BPM: " + this.magician.bpm,
-            VISUAL_BPM_X, VISUAL_BPM_Y);
-        this._drawBox(BPM_WIDGET_X, BPM_WIDGET_Y, BPM_WIDGET_WIDTH, BPM_WIDGET_HEIGHT);
+            UI.VISUAL_BPM_X, UI.VISUAL_BPM_Y);
+        this._drawBox(UI.BPM_WIDGET_X, UI.BPM_WIDGET_Y, UI.BPM_WIDGET_WIDTH, UI.BPM_WIDGET_HEIGHT);
 
-        this._drawBox(BPM_WIDGET_X + this.magician.currentBeat * (BPM_WIDGET_WIDTH / this.magician.beatsPerBar),
-                        BPM_WIDGET_Y,
-                        BPM_WIDGET_WIDTH / this.magician.beatsPerBar,
-                        BPM_WIDGET_HEIGHT,
+        this._drawBox(UI.BPM_WIDGET_X + this.magician.currentBeat * (UI.BPM_WIDGET_WIDTH / this.magician.beatsPerBar),
+                        UI.BPM_WIDGET_Y,
+                        UI.BPM_WIDGET_WIDTH / this.magician.beatsPerBar,
+                        UI.BPM_WIDGET_HEIGHT,
                         true);
 
-        this._drawText("Octave: " + this.magician.octave, OCTAVE_LABEL_X, OCTAVE_LABEL_Y);
-        this._drawBox(OCTAVE_WIDGET_X, OCTAVE_WIDGET_Y, OCTAVE_WIDGET_WIDTH, OCTAVE_WIDGET_HEIGHT);
-        this._drawBox(OCTAVE_WIDGET_X + this.magician.octave * (OCTAVE_WIDGET_WIDTH / OCTAVE_WIDGET_SEGMENTS),
-                      OCTAVE_WIDGET_Y,
-                      OCTAVE_WIDGET_WIDTH / OCTAVE_WIDGET_SEGMENTS,
-                      OCTAVE_WIDGET_HEIGHT,
+        this._drawText("Octave: " + this.magician.octave, UI.OCTAVE_LABEL_X, UI.OCTAVE_LABEL_Y);
+        this._drawBox(UI.OCTAVE_WIDGET_X, UI.OCTAVE_WIDGET_Y, UI.OCTAVE_WIDGET_WIDTH, UI.OCTAVE_WIDGET_HEIGHT);
+        this._drawBox(UI.OCTAVE_WIDGET_X + this.magician.octave * (UI.OCTAVE_WIDGET_WIDTH / UI.OCTAVE_WIDGET_SEGMENTS),
+                      UI.OCTAVE_WIDGET_Y,
+                      UI.OCTAVE_WIDGET_WIDTH / UI.OCTAVE_WIDGET_SEGMENTS,
+                      UI.OCTAVE_WIDGET_HEIGHT,
                       true);
 
-        this._drawText("Channel: " + this.magician.channel, CHANNEL_LABEL_X, CHANNEL_LABEL_Y);
-        this._drawBox(CHANNEL_WIDGET_X, CHANNEL_WIDGET_Y, CHANNEL_WIDGET_WIDTH, CHANNEL_WIDGET_HEIGHT);
-        this._drawBox(CHANNEL_WIDGET_X + this.magician.channel * (CHANNEL_WIDGET_WIDTH / CHANNEL_WIDGET_SEGMENTS),
-                      CHANNEL_WIDGET_Y,
-                      CHANNEL_WIDGET_WIDTH / CHANNEL_WIDGET_SEGMENTS,
-                      CHANNEL_WIDGET_HEIGHT,
+        this._drawText("Channel: " + this.magician.channel, UI.CHANNEL_LABEL_X, UI.CHANNEL_LABEL_Y);
+        this._drawBox(UI.CHANNEL_WIDGET_X, UI.CHANNEL_WIDGET_Y, UI.CHANNEL_WIDGET_WIDTH, UI.CHANNEL_WIDGET_HEIGHT);
+        this._drawBox(UI.CHANNEL_WIDGET_X + this.magician.channel * (UI.CHANNEL_WIDGET_WIDTH / UI.CHANNEL_WIDGET_SEGMENTS),
+                      UI.CHANNEL_WIDGET_Y,
+                      UI.CHANNEL_WIDGET_WIDTH / UI.CHANNEL_WIDGET_SEGMENTS,
+                      UI.CHANNEL_WIDGET_HEIGHT,
                       true);
         
         const prevStrokeStyle = this.context.strokeStyle;
@@ -121,7 +65,7 @@ class Draw {
 
             if (cauldron === this.selectedCauldron) {
                 this.context.fillStyle = 'black';
-                this._drawCircle(coords.x, coords.y, cauldron.radius + CAULDRON_HIGHLIGHT_BORDER_WIDTH);
+                this._drawCircle(coords.x, coords.y, cauldron.radius + UI.CAULDRON_HIGHLIGHT_BORDER_WIDTH);
             }
 
             if (cauldron.isActive()) {
@@ -134,18 +78,18 @@ class Draw {
             this._drawCircle(coords.x, coords.y, cauldron.radius);
         }
 
-        let xPos = INGREDIENTS_PANEL_X + 40;
-        let yPos = INGREDIENTS_PANEL_Y + 15;
+        let xPos = UI.INGREDIENTS_PANEL_X + 40;
+        let yPos = UI.INGREDIENTS_PANEL_Y + 15;
 
         this._drawIngredientRow(this.ingredients.ofType('emitter'), xPos, yPos, 'red');
 
-        xPos = INGREDIENTS_PANEL_X + 40;
-        yPos += INGREDIENT_HEIGHT + INGREDIENT_VERTICAL_SEPARATION;
+        xPos = UI.INGREDIENTS_PANEL_X + 40;
+        yPos += UI.INGREDIENT_HEIGHT + UI.INGREDIENT_VERTICAL_SEPARATION;
 
         this._drawIngredientRow(this.ingredients.ofType('effect'), xPos, yPos, 'blue');
 
-        xPos = INGREDIENTS_PANEL_X + 40;
-        yPos += INGREDIENT_HEIGHT + INGREDIENT_VERTICAL_SEPARATION;
+        xPos = UI.INGREDIENTS_PANEL_X + 40;
+        yPos += UI.INGREDIENT_HEIGHT + UI.INGREDIENT_VERTICAL_SEPARATION;
 
         this._drawIngredientRow(this.ingredients.ofType('length'), xPos, yPos, 'purple');
 
@@ -207,8 +151,8 @@ class Draw {
     }
 
     handleClick(x, y) {
-        if (this._isPointInRect(MAIN_PANEL_X, MAIN_PANEL_Y,
-            MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT,
+        if (this._isPointInRect(UI.MAIN_PANEL_X, UI.MAIN_PANEL_Y,
+            UI.MAIN_PANEL_WIDTH, UI.MAIN_PANEL_HEIGHT,
             x, y)) {
             let coords = this.screenToWorldCoords(x, y);
             let clear = true;
@@ -228,22 +172,22 @@ class Draw {
 
     screenToWorldCoords(x, y) {
         return {
-            x: x - MAIN_PANEL_X,
-            y: y - MAIN_PANEL_Y
+            x: x - UI.MAIN_PANEL_X,
+            y: y - UI.MAIN_PANEL_Y
         }
     }
 
     worldToScreenCoords(x, y) {
         return {
-            x: x + MAIN_PANEL_X,
-            y: y + MAIN_PANEL_Y
+            x: x + UI.MAIN_PANEL_X,
+            y: y + UI.MAIN_PANEL_Y
         }
     }
 
     isInWorldRegion(x, y) {
         return this._isPointInRect(
-                MAIN_PANEL_X, MAIN_PANEL_Y,
-                MAIN_PANEL_WIDTH, MAIN_PANEL_HEIGHT,
+                UI.MAIN_PANEL_X, UI.MAIN_PANEL_Y,
+                UI.MAIN_PANEL_WIDTH, UI.MAIN_PANEL_HEIGHT,
                 x, y
             );
     }
@@ -293,12 +237,12 @@ class Draw {
             let isSelected = (ingredient.name === this.selectedIngredient);
 
             this.context.fillStyle = color;
-            this._drawTriangle(x, y, INGREDIENT_WIDTH, INGREDIENT_HEIGHT, isSelected);
+            this._drawTriangle(x, y, UI.INGREDIENT_WIDTH, UI.INGREDIENT_HEIGHT, isSelected);
 
             this.context.fillStyle = 'black';
-            this._drawText(ingredient.name, x - (3*ingredient.name.length), y + INGREDIENT_HEIGHT + INGREDIENT_NAME_BUFFER);
+            this._drawText(ingredient.name, x - (3*ingredient.name.length), y + UI.INGREDIENT_HEIGHT + UI.INGREDIENT_NAME_BUFFER);
             
-            x += INGREDIENT_WIDTH + INGREDIENT_HORIZONTAL_SEPARATION;
+            x += UI.INGREDIENT_WIDTH + UI.INGREDIENT_HORIZONTAL_SEPARATION;
         }
 
         this.context.font = prevFontStyle;

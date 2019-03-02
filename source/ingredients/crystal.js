@@ -1,9 +1,10 @@
 'use strict'
 
 class Crystal {
-    constructor(_def) {
-        this.type = 'value';
-        this.value = _def.value;
+    constructor(_def, _value) {
+        this.name = _def.name;
+        this.type = _def.type;
+        this.value = _value;
     }
 };
 
