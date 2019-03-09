@@ -49,5 +49,14 @@ module.exports = {
         else {
             return false;
         }
+    },
+
+    distBetweenCircles : function(a, b) {
+        let dx = Math.abs(a.x - b.x);
+        let dy = Math.abs(a.y - b.y);
+
+        let originDist = Math.sqrt(dx*dx + dy*dy);
+
+        return (originDist - a.radius - b.radius);
     }
 }

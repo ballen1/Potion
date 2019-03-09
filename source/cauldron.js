@@ -72,6 +72,15 @@ class Cauldron {
         }
     }
 
+    doesExpand() {
+        if (this.emitter) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     isExpanding() {
         if (this.emitter) {
             return this.emitter.expanding;
@@ -83,6 +92,10 @@ class Cauldron {
 
     get expansionRadius() {
         return (this.radius + this.emitter.currentExpansion);
+    }
+
+    get maxExpansionRadius() {
+        return (this.radius + this.emitter.maxExpansion);
     }
 };
 

@@ -1,6 +1,6 @@
 'use strict';
 
-const { circleCollision } = require('./collision');
+const { circleCollision, distBetweenCircles } = require('./collision');
 
 class Magician {
     constructor(_bpm, _octave = 4, _channel = 0) {
@@ -115,6 +115,29 @@ class Magician {
 
     get isRunning() {
         return this.running;
+    }
+
+    makeCollisionMapping(cauldron) {
+        let mapping = [];
+        
+        if (cauldron.doesExpand()) {
+            let bounds = cauldron.boundingCircle;
+            bounds.radius = cauldron.maxExpansionRadius;
+            for (let other of this.cauldrons) {
+                if (other !== cauldron) {
+                    if (circleCollision(bounds, other.boundingCircle)) {
+                        let threshold = distBetweenCircles(cauldron.boundingCircle, other.boundingCircle);
+                        let collision = { 'cauldron' : other, 'expansionThreshold' : threshold };
+                        mapping.push(collision);
+                    }
+                }
+            }
+        }
+        mapping.sort((a, b) => {
+            return a.expansionThreshold >= b.expansionThreshold;
+        });
+
+        return mapping;
     }
 
     _beatDuration() {

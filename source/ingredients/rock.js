@@ -13,7 +13,7 @@ class Rock {
         this.currentExpansion = 0;
         this.expandingState = 'None';
         this.expansionAmount = 1;
-        this.expansionInterval = 5;
+        this.expansionInterval = 0.5;
     }
 
     brew(beat) {
