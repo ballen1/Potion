@@ -85,6 +85,9 @@ class Potion {
                     else if (ingredient.type == 'length') {
                         cauldron.addIngredient(Ingredients.Animal(ingredient));
                     }
+                    else if (ingredient.type == 'value') {
+                        cauldron.addIngredient(Ingredients.Crystal(ingredient, magician.value));
+                    }
                 }
             }
             else if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Escape', 'Tab'].indexOf(key) > -1) {

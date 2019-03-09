@@ -25,6 +25,10 @@ class Rock {
         }
     }
 
+    applyValue(value) {
+        this.maxExpansion = value;
+    }
+
     _beginExpansion() {
         this.expanding = true;
         this.expandingState = 'Out';

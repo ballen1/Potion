@@ -10,6 +10,7 @@ class Cauldron {
         this.emitter = null;
         this.effect = null;
         this.length = null;
+        this.crystal = null;
     }
 
     get radius() {
@@ -40,9 +41,16 @@ class Cauldron {
                 this.effect.animal = this.length;
             }
         }
+        else if (ingredient.type === 'value') {
+            this.crystal = ingredient;
+        }
 
         if (this.emitter && this.effect) {
             this.emitter.signal = this.effect.emanate.bind(this.effect);
+        }
+
+        if (this.emitter && this.crystal) {
+            this.emitter.applyValue(this.crystal.value);
         }
     }
 

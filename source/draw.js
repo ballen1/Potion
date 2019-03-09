@@ -130,6 +130,11 @@ class Draw {
 
         this._drawIngredientRow(this.ingredients.ofType('length'), xPos, yPos, 'purple');
 
+        xPos = UI.INGREDIENTS_PANEL_X + 40;
+        yPos += UI.INGREDIENT_HEIGHT + UI.INGREDIENT_VERTICAL_SEPARATION;
+
+        this._drawIngredientRow(this.ingredients.ofType('value'), xPos, yPos, 'black');
+
         this.context.strokeStyle = prevStrokeStyle;
         this.context.fillStyle = prevFillStyle;
     }

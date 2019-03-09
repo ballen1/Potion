@@ -61,7 +61,7 @@ module.exports = {
         return new Liquid(liquid);
     },
 
-    Crystal : function(crystal) {
-        return new Crystal(crystal);
+    Crystal : function(crystal, value) {
+        return new Crystal(crystal, value);
     }
 };
