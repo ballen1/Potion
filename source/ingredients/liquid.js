@@ -2,7 +2,7 @@
 
 class Liquid {
     constructor(_def) {
-        this.type = 'modifier';
+        this.type = 'filter';
         this.target = _def.target;
     }
 };

@@ -100,6 +100,11 @@ class Draw {
                 this._drawCircle(coords.x, coords.y, cauldron.radius + UI.CAULDRON_HIGHLIGHT_BORDER_WIDTH);
             }
 
+            if (cauldron.isExpanding()) {
+                this.context.fillStyle = 'purple';
+                this._drawCircle(coords.x, coords.y, cauldron.expansionRadius);
+            }
+
             if (cauldron.isActive()) {
                 this.context.fillStyle = 'orange';
             }

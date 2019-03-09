@@ -63,6 +63,19 @@ class Cauldron {
             this.effect.beatMs = newDuration;
         }
     }
+
+    isExpanding() {
+        if (this.emitter) {
+            return this.emitter.expanding;
+        }
+        else {
+            return false;
+        }
+    }
+
+    get expansionRadius() {
+        return (this.radius + this.emitter.currentExpansion);
+    }
 };
 
 module.exports = Cauldron;
