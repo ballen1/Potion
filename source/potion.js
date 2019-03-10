@@ -78,7 +78,7 @@ class Potion {
                 if (cauldron) {
                     if (ingredient.type === 'emitter') {
                         cauldron.addIngredient(Ingredients.Rock(ingredient));
-                        magician.makeCollisionMapping(cauldron);
+                        cauldron.collisionMapping = magician.makeCollisionMapping(cauldron);
                     }
                     else if (ingredient.type == 'effect') {
                         cauldron.addIngredient(Ingredients.Mushroom(this.midi, ingredient, magician.channel, magician.octave, magician.beatDuration));
@@ -88,7 +88,10 @@ class Potion {
                     }
                     else if (ingredient.type == 'value') {
                         cauldron.addIngredient(Ingredients.Crystal(ingredient, magician.value));
-                        magician.makeCollisionMapping(cauldron);
+
+                        if (cauldron.ingredientSet == 'EmitterSet') {
+                            cauldron.collisionMapping = magician.makeCollisionMapping(cauldron);
+                        }
                     }
                     else if (ingredient.type == 'filter') {
                         cauldron.addIngredient(Ingredients.Liquid(ingredient));

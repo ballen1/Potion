@@ -23,6 +23,10 @@ class Cauldron {
         this.effect = null;
         this.length = null;
         this.crystal = null;
+
+        this.collisionMapping = null;
+
+        this.mixCount = 0;
     }
 
     get radius() {
@@ -107,6 +111,18 @@ class Cauldron {
         else {
             return false;
         }
+    }
+
+    addMix() {
+        this.mixCount += 1;
+    }
+
+    removeMix() {
+        this.mixCount -= 1;
+    }
+
+    isMixing() {
+        return this.mixCount > 0;
     }
 
     get expansionRadius() {

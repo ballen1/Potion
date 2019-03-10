@@ -137,7 +137,6 @@ class Magician {
             return a.expansionThreshold >= b.expansionThreshold;
         });
 
-        console.log(mapping);
         return mapping;
     }
 
