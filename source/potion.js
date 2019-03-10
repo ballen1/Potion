@@ -11,7 +11,7 @@ class Potion {
     constructor() {
         this.canvas = document.createElement('canvas');
         this.canvas.width = 1200;
-        this.canvas.height = 700;
+        this.canvas.height = 800;
         document.body.appendChild(this.canvas);
 
         this.midi = new Midi();
@@ -89,6 +89,9 @@ class Potion {
                     else if (ingredient.type == 'value') {
                         cauldron.addIngredient(Ingredients.Crystal(ingredient, magician.value));
                         magician.makeCollisionMapping(cauldron);
+                    }
+                    else if (ingredient.type == 'filter') {
+                        cauldron.addIngredient(Ingredients.Liquid(ingredient));
                     }
                 }
             }

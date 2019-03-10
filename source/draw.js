@@ -109,7 +109,14 @@ class Draw {
                 this.context.fillStyle = 'orange';
             }
             else {
-                this.context.fillStyle = 'green';
+                if (cauldron.ingredientSet == 'None' || cauldron.ingredientSet == 'EmitterSet')
+                {
+                    this.context.fillStyle = 'green';
+                }
+                else if (cauldron.ingredientSet == 'FilterSet')
+                {
+                    this.context.fillStyle = 'SkyBlue';
+                }
             }
 
             this._drawCircle(coords.x, coords.y, cauldron.radius);
@@ -134,6 +141,11 @@ class Draw {
         yPos += UI.INGREDIENT_HEIGHT + UI.INGREDIENT_VERTICAL_SEPARATION;
 
         this._drawIngredientRow(this.ingredients.ofType('value'), xPos, yPos, 'black');
+
+        xPos = UI.INGREDIENTS_PANEL_X + 40;
+        yPos += UI.INGREDIENT_HEIGHT + UI.INGREDIENT_VERTICAL_SEPARATION;
+
+        this._drawIngredientRow(this.ingredients.ofType('filter'), xPos, yPos, 'yellow');
 
         this.context.strokeStyle = prevStrokeStyle;
         this.context.fillStyle = prevFillStyle;

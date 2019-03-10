@@ -30,7 +30,9 @@ module.exports = {
         { name: 'Talons', type: 'length', length: 2},
         { name: 'Hairs', type: 'length', length: 4},
 
-        { name: 'Quartz', type: 'value' }
+        { name: 'Quartz', type: 'value' },
+
+        { name: 'Sparkling', type: 'filter', target: 'mushroom' }
     ],
 
     ofType : function(type) {

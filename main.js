@@ -5,7 +5,7 @@ const {app, BrowserWindow} = require('electron')
 let win;
 
 app.on('ready', () => {
-    win = new BrowserWindow({width: 1480, height: 820});
+    win = new BrowserWindow({width: 1480, height: 920});
 
     win.loadFile('./source/index.html');
 

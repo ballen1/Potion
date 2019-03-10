@@ -125,7 +125,7 @@ class Magician {
             bounds.radius = cauldron.maxExpansionRadius;
             for (let other of this.cauldrons) {
                 if (other !== cauldron) {
-                    if (circleCollision(bounds, other.boundingCircle)) {
+                    if (other.ingredientSet == 'FilterSet' && circleCollision(bounds, other.boundingCircle)) {
                         let threshold = distBetweenCircles(cauldron.boundingCircle, other.boundingCircle);
                         let collision = { 'cauldron' : other, 'expansionThreshold' : threshold };
                         mapping.push(collision);
@@ -137,6 +137,7 @@ class Magician {
             return a.expansionThreshold >= b.expansionThreshold;
         });
 
+        console.log(mapping);
         return mapping;
     }
 
